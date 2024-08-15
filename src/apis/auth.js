@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const refreshToken = (accessToken) => {
+export const refreshToken = async (accessToken) => {
     const url = `${import.meta.env.VITE_API_URL}/login/token`;
 
-    axios.post(url, {
+    await axios.post(url, {
         accessToken
     }, {
         withCredentials: true
