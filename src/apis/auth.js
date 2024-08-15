@@ -1,16 +1,18 @@
-export const refreshToken = async (accessToken) => {
+import axios from "axios";
+
+export const refreshToken = (accessToken) => {
     const url = `${import.meta.env.VITE_API_URL}/login/token`;
 
-    try {
-        await axios.post(url, {
-            accessToken
-        }, {
-            withCredentials: true
-        });
-    } catch (error) {
-        console.error(error);
-        return Promise.reject(error);
-    }
-
-    refreshToken();
+    axios.post(url, {
+        accessToken
+    }, {
+        withCredentials: true
+    })
+    .then((res) => {
+        localStorage.setItem('accessToken', res.data.accessToken);
+    })
+    .catch((err) => {
+        console.error(err);
+    });
+    
 };
