@@ -1,5 +1,7 @@
 /**
  * SPA 에서 파일 다운로드
+ *   - axios : response.data
+ *   - fetch : response.blob()
  * @param {*} blob 
  * @param {*} fileName 
  */
