@@ -1,6 +1,6 @@
 import axios from "axios";
 import { getToken, isTokenExpired } from "./token";
-import { refreshToken } from "../apis/auth";
+import { refreshToken } from "../apis/authApi";
 
 const setApiUrl = () => {
     const profile = import.meta.env.VITE_PROFILE;
