@@ -12,6 +12,11 @@ const chars = {
     '&gt;': '>',
     '&#39;': "'",
 }
+
+/**
+ * @param {string} str 
+ * @returns 
+ */
 export const unescapeHtml = (str) => {
     if ( regex.test(str) ) {
         return str.replace(regex, (matched) => chars[matched] || matched);

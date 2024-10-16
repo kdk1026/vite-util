@@ -1,7 +1,7 @@
 /**
  * $.extend(true, target, source) 의 Vanilla JS 로 구현
- * @param {*} target 
- * @param {*} source 
+ * @param {Object} target 
+ * @param {Object} source
  * @returns 
  */
 export const deepCopy = (target, source) => {

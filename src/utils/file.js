@@ -2,8 +2,8 @@
  * SPA 에서 파일 다운로드
  *   - axios : response.data
  *   - fetch : response.blob()
- * @param {*} blob 
- * @param {*} fileName 
+ * @param {Blob} blob 
+ * @param {string} fileName 
  */
 export const download = (blob, fileName) => {
     const url = window.URL.createObjectURL(new Blob([blob]));
@@ -28,7 +28,7 @@ export const getFileExt = (fileObj) => {
 
 /**
  * 서버단 CORS에서 Content-Disposition 헤더를 반환해야 response 파일명 가져옴
- * @param {*} response 
+ * @param {Response} response 
  * @param {string} defaultFileName
  * @returns 
  */
@@ -48,7 +48,7 @@ export const getFileName = (response, defaultFileName) => {
 
 /**
  * 바니어리 데이터를 이미지, 동영상, 오디오 등 다양한 미디어 데이터를 처리하기 위한 URL로 반환
- * @param {*} blob 
+ * @param {Blob} blob 
  */
 export const getMediaUrl = (blob) => {
     // window.URL.createObjectURL(new Blob([blob])); 동일
