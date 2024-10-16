@@ -6,7 +6,7 @@
  */
 export const deepCopy = (target, source) => {
     for (const key in source) {
-        if (source.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
             if (typeof source[key] === 'object') {
                 target[key] = deepCopy({}, source[key]);
             } else {

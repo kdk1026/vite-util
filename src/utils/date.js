@@ -314,7 +314,7 @@ const GetDateInterval = {
         let fixDate = moment(strFixDate, ["YYYYMMDD"], true).toDate();
         let targetDate = moment().toDate();
         let result = moment.duration(fixDate - targetDate).asYears();
-        return (Math.round(result) === -0) ? 0 : Math.round(result);
+        return Object.is(Math.round(result), -0) ? 0 : Math.round(result);
     },
     /**
      * 현재 날짜와 월 간격 구하기
@@ -326,7 +326,7 @@ const GetDateInterval = {
         let fixDate = moment(strFixDate, ["YYYYMMDD"], true).toDate();
         let targetDate = moment().toDate();
         let result = moment.duration(fixDate - targetDate).asMonths();
-        return (Math.ceil(result) === -0) ? 0 : Math.ceil(result);
+        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     },
     /**
      * 현재 날짜와 일자 간격 구하기
@@ -338,7 +338,7 @@ const GetDateInterval = {
         let fixDate = moment(strFixDate, ["YYYYMMDD"], true).toDate();
         let targetDate = moment().toDate();
         let result = moment.duration(fixDate - targetDate).asDays();
-        return (Math.ceil(result) === -0) ? 0 : Math.ceil(result);
+        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     }
 };
 
@@ -356,7 +356,7 @@ const GetTimeInterval = {
         let fixDate = moment(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
         let targetDate = moment().toDate();
         let result = moment.duration(fixDate - targetDate).asHours();
-        return (Math.ceil(result) === -0) ? 0 : Math.ceil(result);
+        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     },
     /**
      * 현재 날짜와 분 간격 구하기
@@ -368,7 +368,7 @@ const GetTimeInterval = {
         let fixDate = moment(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
         let targetDate = moment().toDate();
         let result = moment.duration(fixDate - targetDate).asMinutes();
-        return (Math.ceil(result) === -0) ? 0 : Math.ceil(result);
+        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     },
     /**
      * 현재 날짜와 초 간격 구하기
@@ -380,7 +380,7 @@ const GetTimeInterval = {
         let fixDate = moment(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
         let targetDate = moment().toDate();
         let result = moment.duration(fixDate - targetDate).asSeconds();
-        return (Math.ceil(result) === -0) ? 0 : Math.ceil(result);
+        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     }
 };
 

@@ -17,6 +17,16 @@ export const download = (blob, fileName) => {
 };
 
 /**
+ * 파일 확장자 추출
+ * @param {Object} fileObj 
+ * @returns 
+ */
+export const getFileExt = (fileObj) => {
+    const fileName = fileObj.name;
+    return fileName.substring(fileName.lastIndexOf(".") + 1);
+};
+
+/**
  * 서버단 CORS에서 Content-Disposition 헤더를 반환해야 response 파일명 가져옴
  * @param {*} response 
  * @param {string} defaultFileName
