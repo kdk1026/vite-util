@@ -54,3 +54,26 @@ export const getMediaUrl = (blob) => {
     // window.URL.createObjectURL(new Blob([blob])); 동일
     return window.URL.createObjectURL(blob);
 };
+
+export const allowedExtensions = [
+    'jpg', 'jpeg', 'gif', 'png', 'bmp', 'pdf',
+    'ppt', 'pptx', 'xls', 'xlsx', 'doc', 'docx',
+    'hwp', 'txt', 'zip'
+];
+
+export const MAX_FILE_SIZE = 20 * 1024 * 1024;
+
+/**
+ * 파일 용량 체크
+ * @param {Object} fileObj 
+ * @param {(undefined|null|number)} maxFileSize 
+ * @returns 
+ */
+export const checkFileSize = (fileObj, maxFileSize) => {
+    if ( !maxFileSize ) {
+        maxFileSize = MAX_FILE_SIZE;
+    }
+
+    const fileSize = fileObj.size;
+    return fileSize > maxFileSize;
+};
