@@ -82,22 +82,28 @@ const onErrorCase = (error) => {
 
 	switch (status) {
 		case 400:
+            alert("잘못된 요청입니다.");
 			onError(status, "잘못된 요청입니다.");
 			break;
 		case 401:
+            alert("인증 실패입니다.");
 			onError(status, "인증 실패입니다.");
 			break;
 		case 403:
+            alert("권한이 없습니다.");
 			onError(status, "권한이 없습니다.");
 			break;
 		case 404:
+            alert("찾을 수 없는 URL 입니다.");
 			onError(status, "찾을 수 없는 URL 입니다.");
 			break;
 		case 500:
-			onError(status, "서버 오류입니다.");
+            alert("서버에 문제가 발생했습니다.");
+			onError(status, "서버에 문제가 발생했습니다.");
 			break;
 		default:
-			onError(status, `에러가 발생했습니다. ${error.message}`);
+            alert(`문제가 발생했습니다. ${error.message}`);
+			onError(status, `문제가 발생했습니다. ${error.message}`);
 	}
 };
 
