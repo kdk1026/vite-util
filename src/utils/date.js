@@ -496,4 +496,32 @@ const UnixTimestamp = {
     }
 };
 
-export {Today, StringFormat, Convert, CalcDate, CalcTime, GetDateInterval, GetTimeInterval, GetDayOfWeek, GetDayOfMonth, UnixTimestamp}
+/**
+ * Check
+ */
+const Check = {
+    /**
+     * 해당 날짜가 월의 마지막에 속하는지 체크
+     * @param {string} strDate 
+     * @returns 
+     */
+    isLastWeekOfMonth : function(strDate) {
+        const date = moment(strDate, ["YYYYMMDD"], true);
+        const lastDayOfMonth = date.clone().endOf('month');
+        const startOfLastWeek = lastDayOfMonth.clone().startOf('week');
+        return date.isSameOrAfter(startOfLastWeek);
+    },
+    /**
+     * 해당 날짜가 월의 첫째주에 속하는지 체크
+     * @param {string} strDate 
+     * @returns 
+     */
+    isFistWeekOfMonth : function(strDate) {
+        const date = moment(strDate, ["YYYYMMDD"], true);
+        const firstDayOfMonth = date.clone().startOf('month');
+        const endOfFirstWeek = firstDayOfMonth.clone().endOf('week');
+        return date.isSameOrBefore(endOfFirstWeek);
+    }
+};
+
+export {Today, StringFormat, Convert, CalcDate, CalcTime, GetDateInterval, GetTimeInterval, GetDayOfWeek, GetDayOfMonth, UnixTimestamp, Check}
