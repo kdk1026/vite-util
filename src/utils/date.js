@@ -450,12 +450,28 @@ const GetDayOfMonth = {
         return moment().daysInMonth();
     },
     /**
+     * 현재 날짜의 마지막 일자를 yyyyMMdd 형식으로 반환
+     */
+    getLastDayOfMonthString: function() {
+        return moment().endOf('month').format('YYYYMMDD');
+    },
+    /**
      * yyyyMMdd 형식의 String 타입에 해당하는 월의 마지막 일자를 반환
      * @param {string} strDate 
      * @returns 
      */
     getLastDayOfMonthString : function(strDate) {
         return moment(strDate, ["YYYYMMDD"], true).daysInMonth();
+    },
+    /**
+     * yyyyMMdd 형식의 String 타입에 해당하는 월의 마지막 일자를 yyyyMMdd 형식으로 반환
+     * @param {string} strDate 
+     * @returns 
+     */
+    getLastDayOfMonthString: function(strDate) {
+        const daysInMonth = moment(strDate, ["YYYYMMDD"], true).daysInMonth();
+        const lastDay = moment(strDate, ["YYYYMMDD"], true).date(daysInMonth);
+        return lastDay.format('YYYYMMDD');
     }
 };
 
