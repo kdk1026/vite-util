@@ -50,3 +50,7 @@ export const formatGeneralPhoneNumber = (value) => {
 export const formatNumber = (value) => {
     return value.replace(/[^\d]/g, '');
 }
+
+export const formatNumberComma = (num) => {
+    return Number(num.replace(/,/g, '')).toLocaleString();
+}
