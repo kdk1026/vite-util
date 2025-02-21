@@ -66,7 +66,7 @@ export const isNotHangul = (val) => {
  * @returns 
  */
 export const isEmptyObject = (param) => {
-    return Object.keys(param).length === 0 && param.constructor === Object;
+    return Object.keys(param).length === 0;
 };
 
 /**
@@ -74,7 +74,7 @@ export const isEmptyObject = (param) => {
  * @returns 
  */
 export const isEmptyArray = (param) => {
-    return Object.keys(param).length === 0 && param.constructor === Array;
+    return Array.isArray(param) && param.length === 0;
 };
 
 /**
