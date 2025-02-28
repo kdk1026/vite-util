@@ -17,6 +17,36 @@ export const isMobile = () => {
  * 
  * @returns 
  */
+export const isUserAgentMobile = () => {
+    const userAgent = navigator.userAgent || window.opera;
+    
+    if (/android/i.test(userAgent)) {
+        return true;
+    }
+
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return true;
+    }
+
+    if (/blackberry|bb10|playbook/i.test(userAgent)) {
+        return true;
+    }
+
+    if (/windows phone/i.test(userAgent)) {
+        return true;
+    }
+
+    if (/webos|touchpad|hpwos/i.test(userAgent)) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * 
+ * @returns 
+ */
 export const isMobileOs = () => {
     const _ret = {
         Android: navigator.userAgent.match(/Android/i) == null ? false : true,
