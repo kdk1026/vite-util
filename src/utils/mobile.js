@@ -78,10 +78,15 @@ export const isCheckUserAgent = (checkString) => {
  * @param {string} host 
  * @param {string} scheme 
  * @param {string} packageName 
+ * @param {undefined|screen} screen
  * @returns 
  */
-export const makeAndroidAppLinkUrl = (host, scheme, packageName) => {
-    return 'intent://' + host + '/#Intent;package=' + packageName + ';scheme=' + scheme + ';end';
+export const makeAndroidAppLinkUrl = (host, scheme, packageName, screen) => {
+    if ( !screen  ) {
+        return 'intent://' + host + '/#Intent;package=' + packageName + ';scheme=' + scheme + ';end';
+    } else {
+        return 'intent://' + host + '/#Intent;package=' + packageName + ';scheme=' + scheme + ';S.screen=' + screen + ';end';
+    }
 };
 
 /**
@@ -90,10 +95,15 @@ export const makeAndroidAppLinkUrl = (host, scheme, packageName) => {
  * 2. Identifier와 URL Schemes에 적절한 값을 입력
  * @param {string} host 
  * @param {string} scheme 
+ * @param {undefined|screen} screen
  * @returns 
  */
-export const makeURLSchemeIOSAppLinkUrl = (host, scheme) => {
-    return scheme + '://' + host;
+export const makeURLSchemeIOSAppLinkUrl = (host, scheme, screen) => {
+    if ( !screen ) {
+        return scheme + '://' + host;
+    } else {
+        return scheme + '://' + host + '?screen=' + screen;
+    }
 };
 
 /**
