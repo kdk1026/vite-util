@@ -151,3 +151,13 @@ export const isUrl = (val) => {
     const _re = /^(https?:\/\/)([\w-]+(\.[\w-]+)+)(:\d+)?(\/\S*)?$/;
     return _re.test(val);
 };
+
+/**
+ * 안전한 URL인지 체크 (상대 경로, https://, http:// 만 허용)
+ *  - 상대 경로는 '/'로 시작하는 경우
+ * @param {*} val 
+ */
+export const isSafeUrl = (val) => {
+    const _re = /^(\/[\w-]+(\/[\w-]*)*|https?:\/\/[\w-]+(\.[\w-]+)+(:\d+)?(\/\S*)?)$/;
+    return _re.test(val);
+};
