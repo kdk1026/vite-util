@@ -1,12 +1,13 @@
 export const getSessionStorageSize = () => {
     let total = 0;
     for (let key in sessionStorage) {
-        if (sessionStorage.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(sessionStorage, key)) {
             total += sessionStorage[key].length * 2; // UTF-16 문자의 바이트 수
         }
     }
     console.log(`세션 스토리지 사용량: ${readableFileSize(total)}`);
 }
+
 const readableFileSize = (size) => {
     if (size == 0) return '0';
     var _arrDataUnits = ['B', 'KB', 'MB', 'GB', 'TB'];

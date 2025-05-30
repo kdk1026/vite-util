@@ -69,7 +69,7 @@ export const getDbData = () => {
             })
             .catch(error => {
                 console.log("데이터베이스 열기 실패:", error);
-                resolve(error);
+                reject(error);
             });
     });
 };
@@ -102,7 +102,7 @@ export const removeDbData = () => {
 export const removeDatabase = () => {
     let deleteRequest = indexedDB.deleteDatabase(database);
 
-    deleteRequest.onsuccess = function(event) {
+    deleteRequest.onsuccess = function() {
         console.log("데이터베이스가 성공적으로 삭제되었습니다.");
     };
 

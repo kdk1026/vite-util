@@ -79,6 +79,7 @@ const onErrorCase = (error) => {
     }
 
     const { status, statusText } = error.response;
+    console.log(statusText);
 
 	switch (status) {
 		case 400:

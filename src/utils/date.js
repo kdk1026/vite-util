@@ -457,18 +457,20 @@ const GetDayOfMonth = {
     },
     /**
      * yyyyMMdd 형식의 String 타입에 해당하는 월의 마지막 일자를 반환
+     * - Java 와 다르게 인자가 달라도 함수명은 구분해야 함
      * @param {string} strDate 
      * @returns 
      */
-    getLastDayOfMonthString : function(strDate) {
+    getLastDayOfMonthForDate : function(strDate) {
         return moment(strDate, ["YYYYMMDD"], true).daysInMonth();
     },
     /**
      * yyyyMMdd 형식의 String 타입에 해당하는 월의 마지막 일자를 yyyyMMdd 형식으로 반환
+     * - Java 와 다르게 인자가 달라도 함수명은 구분해야 함
      * @param {string} strDate 
      * @returns 
      */
-    getLastDayOfMonthString: function(strDate) {
+    getLastDayOfMonthStringForDate: function(strDate) {
         const daysInMonth = moment(strDate, ["YYYYMMDD"], true).daysInMonth();
         const lastDay = moment(strDate, ["YYYYMMDD"], true).date(daysInMonth);
         return lastDay.format('YYYYMMDD');
