@@ -25,6 +25,11 @@ const openDatabase = () => {
 };
 
 export const addDbData = (data) => {
+    if (!data) {
+        console.log("데이터가 제공되지 않았습니다.");
+        return;
+    }
+
     openDatabase()
         .then(db => {
             // 트랜잭션 생성 (읽기/쓰기 모드)

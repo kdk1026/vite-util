@@ -1,4 +1,12 @@
 export const jsonToObject = (jsonStr) => {
+    if ( !jsonStr || !jsonStr.trim() ) {
+        console.error("유효하지 않은 JSON 문자열:", jsonStr);  
+        return null;
+    } else if (typeof jsonStr !== 'string') {
+        console.error("JSON 문자열이 아닌 값:", jsonStr);
+        return null;
+    }
+
     try {
         return JSON.parse(jsonStr);
     } catch (error) {
@@ -7,6 +15,11 @@ export const jsonToObject = (jsonStr) => {
 };
 
 export const objectToJsonString = (obj) => {
+    if ( !obj || typeof obj !== 'object' ) {
+        console.error("유효하지 않은 객체:", obj);  
+        return null;
+    }
+
     try {
         return JSON.stringify(obj);
     } catch (error) {
@@ -15,6 +28,11 @@ export const objectToJsonString = (obj) => {
 };
 
 export const objectToJsonStringPretty = (obj) => {
+    if ( !obj || typeof obj !== 'object' ) {
+        console.error("유효하지 않은 객체:", obj);  
+        return null;
+    }
+
     try {
         return JSON.stringify(obj, null, 2);
     } catch (error) {

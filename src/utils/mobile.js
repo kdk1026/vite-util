@@ -61,13 +61,22 @@ export const isMobileOs = () => {
  * @returns 
  */
 export const isCheckUserAgent = (checkString) => {
+    if ( !checkString || !checkString.trim() ) {
+        console.error('checkString is required.');
+        return false;
+    } else if (typeof checkString !== 'string') {
+        console.error('checkString must be a string.');
+        return false;
+    }
+
     const _agent = navigator.userAgent;
     return _agent.indexOf(checkString) > -1;
 };
 
 /**
+ * INTENT 방식 (Intent URI)
  * 
- * 링크 생성 하더라도 작동하려면 다음 설정 필수
+ * 이 링크가 작동하려면 다음 설정이 필수입니다.
  * AndroidManifest.xml
  *  <intent-filter>
  *      <action android:name="android.intent.action.VIEW" />
@@ -82,6 +91,11 @@ export const isCheckUserAgent = (checkString) => {
  * @returns 
  */
 export const makeAndroidAppLinkUrl = (host, scheme, packageName, screen) => {
+    if ( !host || !scheme || !packageName ) {
+        console.error('host, scheme, packageName are required.');
+        return '';
+    }
+
     if ( !screen  ) {
         return 'intent://' + host + '/#Intent;package=' + packageName + ';scheme=' + scheme + ';end';
     } else {
@@ -91,14 +105,24 @@ export const makeAndroidAppLinkUrl = (host, scheme, packageName, screen) => {
 
 /**
  * URL 스킴 방식
- * 1. info.plist 에 URL Types 항목 추가
- * 2. Identifier와 URL Schemes에 적절한 값을 입력
+ * 
+ * 이 링크가 작동하려면 다음 설정이 필수입니다.
+ * 1. Xcode 프로젝트에서 'Info' 탭을 엽니다.
+ * 2. 'URL Types' 섹션으로 스크롤하여 새 항목을 추가합니다 ( '+' 버튼 클릭).
+ * 3. 'Identifier' 필드에 고유한 식별자를 입력합니다 (예: 'com.yourcompany.yourapp').
+ * 4. 'URL Schemes' 필드에 사용할 스키마를 입력합니다 (예: 'your-app-scheme').
+ * 여기에 입력된 스키마가 makeURLSchemeIOSAppLinkUrl 함수의 'scheme' 매개변수와 일치해야 합니다.
  * @param {string} host 
  * @param {string} scheme 
  * @param {undefined|screen} screen
  * @returns 
  */
 export const makeURLSchemeIOSAppLinkUrl = (host, scheme, screen) => {
+    if ( !host || !scheme ) {
+        console.error('host, scheme are required.');
+        return '';
+    }
+
     if ( !screen ) {
         return scheme + '://' + host;
     } else {
@@ -113,6 +137,11 @@ export const makeURLSchemeIOSAppLinkUrl = (host, scheme, screen) => {
  * @param {string} iosAppStoreUrl 
  */
 export const runAppLinkUrl = (androidUrl, iosUrl, iosAppStoreUrl) => {
+    if ( !androidUrl || !iosUrl || !iosAppStoreUrl ) {
+        console.error('androidUrl, iosUrl, iosAppStoreUrl are required.');
+        return;
+    }
+
     if ( isMobile() ) {
         const mobileOs = isMobileOs();
 
