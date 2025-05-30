@@ -6,6 +6,18 @@
  * @param {string} fileName 
  */
 export const download = (blob, fileName) => {
+    if ( !blob || !(blob instanceof Blob) ) {
+        console.error("Invalid blob object provided for download.");
+        return;
+    }
+
+    if ( !fileName.trim() ) {
+        console.error("File name is required for download.");
+    } else if ( typeof fileName !== 'string' ) {
+        console.error("File name must be a string.");
+        return;
+    }
+
     const url = window.URL.createObjectURL(new Blob([blob]));
     const a = document.createElement("a");
     a.href = url;
@@ -22,6 +34,11 @@ export const download = (blob, fileName) => {
  * @returns 
  */
 export const getFileExt = (fileObj) => {
+    if ( !fileObj || !fileObj.name ) {
+        console.error("Invalid file object provided.");
+        return null;
+    }
+
     const fileName = fileObj.name;
     return fileName.substring(fileName.lastIndexOf(".") + 1);
 };
@@ -33,6 +50,19 @@ export const getFileExt = (fileObj) => {
  * @returns 
  */
 export const getFileName = (response, defaultFileName) => {
+    if ( !response || !(response instanceof Response) ) {
+        console.error("Invalid response object provided.");
+        return null;
+    }
+
+    if ( !defaultFileName.trim() ) {
+        console.error("Default file name is required.");
+        return null;
+    } else if ( typeof defaultFileName !== 'string' ) {
+        console.error("Default file name must be a non-empty string.");
+        return null;
+    }
+
 	const contentDisposition = response.headers['content-disposition'] || response.headers.get('content-disposition');
     let fileName = defaultFileName;
 
@@ -51,13 +81,24 @@ export const getFileName = (response, defaultFileName) => {
  * @param {Blob} blob 
  */
 export const getMediaUrl = (blob) => {
+    if ( !blob || !(blob instanceof Blob) ) {
+        console.error("Invalid blob object provided for download.");
+        return;
+    }
+
     // window.URL.createObjectURL(new Blob([blob])); 동일
     return window.URL.createObjectURL(blob);
 };
 
+export const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
+export const documentExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'hwp', 'txt'];
+export const archiveExtensions = ['zip', 'rar', '7z'];
+export const audioExtensions = ['mp3', 'wav'];
+export const videoExtensions = ['mp4', 'avi', 'mov', 'mkv'];
+
 export const allowedExtensions = [
-    'jpg', 'jpeg', 'gif', 'png', 'bmp', 'pdf',
-    'ppt', 'pptx', 'xls', 'xlsx', 'doc', 'docx',
+    'jpg', 'jpeg', 'png', 'gif', 'bmp',
+    'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx',   
     'hwp', 'txt', 'zip'
 ];
 
@@ -70,6 +111,11 @@ export const MAX_FILE_SIZE = 20 * 1024 * 1024;
  * @returns 
  */
 export const checkFileSize = (fileObj, maxFileSize) => {
+    if ( !fileObj || !fileObj.name ) {
+        console.error("Invalid file object provided.");
+        return null;
+    }
+
     if ( !maxFileSize ) {
         maxFileSize = MAX_FILE_SIZE;
     }

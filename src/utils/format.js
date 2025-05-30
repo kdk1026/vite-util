@@ -1,5 +1,12 @@
 export const formatPhoneNumber = (value) => {
-    if (!value) return value;
+    if ( !value || !value.trim() ) {
+        console.warn('formatPhoneNumber: Invalid input value');
+        return null;
+    } else if (typeof value !== 'string') {
+        console.warn('formatPhoneNumber: Input value must be a string');
+        return null;
+    }    
+
     const phoneNumber = value.replace(/[^\d]/g, '');
     const phoneNumberLength = phoneNumber.length;
     if (phoneNumberLength < 4) return phoneNumber;
@@ -10,7 +17,14 @@ export const formatPhoneNumber = (value) => {
 }
 
 export const formatGeneralPhoneNumber = (value) => {
-    if (!value) return value;
+    if ( !value || !value.trim() ) {
+        console.warn('formatGeneralPhoneNumber: Invalid input value');
+        return null;
+    } else if (typeof value !== 'string') {
+        console.warn('formatGeneralPhoneNumber: Input value must be a string');
+        return null;
+    }    
+
     const phoneNumber = value.replace(/[^\d]/g, '');
     const phoneNumberLength = phoneNumber.length;
     if (phoneNumber.startsWith('02')) {
@@ -48,9 +62,25 @@ export const formatGeneralPhoneNumber = (value) => {
 }
 
 export const formatNumber = (value) => {
+    if ( !value || !value.trim() ) {
+        console.warn('formatNumber: Invalid input value');
+        return null;
+    } else if (typeof value !== 'string') {
+        console.warn('formatNumber: Input value must be a string');
+        return null;
+    }
+
     return value.replace(/[^\d]/g, '');
 }
 
 export const formatNumberComma = (num) => {
+    if ( !num || !num.trim() ) {
+        console.warn('formatNumberComma: Invalid input value');
+        return null;
+    } else if (typeof num !== 'string') {
+        console.warn('formatNumberComma: Input value must be a string');
+        return null;
+    }
+
     return Number(num.replace(/,/g, '')).toLocaleString();
 }
