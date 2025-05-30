@@ -1,4 +1,26 @@
-import moment from "moment/moment";
+import dayjs from "dayjs";
+
+// Moment.js와 거의 동일한 API를 사용하는 Day.js 사용
+// XXX 테스트는 해보지 못함
+
+/*
+    Moment.js와 달리 변경이 불가능(immutable)하기 때문에
+    이미 변수에 Day.js 객체의 날짜를 메소드로 변경할 경우 변수에 재할당해주어야 한다.
+
+    ```
+        // Moment.js
+        const dateWithMoment = moment('2023-11-02');
+        dateWithMoment.add(7, 'day'); // 7일 추가
+        console.log(dateWithMoment.formet('YYYY-MM-DD'); // '2023-11-09'
+                    
+        // Day.js
+        let dateWithDay = dayjs('2023-11-02');
+        dateWithDay.add(7, 'day') // 7일 추가
+        console.log(dateWithDay.format('YYYY-MM-DD')) // '2023-11-02' 그대로 출력
+        dateWithDay = dateWithDay.add(7, 'day') // 7일 추가 + 재할당
+        console.log(dateWithDay.format('YYYY-MM-DD')) // '2023-11-09'
+    ```
+*/
 
 const FORMAT = {
     YYYYMMDD : 'YYYYMMDD',
@@ -14,7 +36,7 @@ const Today = {
      * @returns 
      */
     getTodayString : function() {
-        return moment().format(FORMAT.YYYYMMDD);
+        return dayjs().format(FORMAT.YYYYMMDD);
     },
     /**
      * 현재 날짜를 해당 포맷의 String 타입로 반환
@@ -22,49 +44,49 @@ const Today = {
      * @returns 
      */
     getTodayStringFormat : function(dateFromat) {
-        return moment().format(dateFromat);
+        return dayjs().format(dateFromat);
     },
     /**
      * 현재 시간을 HHmmss 형식의 String 타입으로 반환
      * @returns 
      */
     getCurrentTime : function() {
-        return moment().format('HHmmss');
+        return dayjs().format('HHmmss');
     },
     /**
      * 현재 연도 반환
      * @returns 
      */
     getYear : function() {
-        return moment().format('YYYY');
+        return dayjs().format('YYYY');
     },
     /**
      * 현재 월 반환
      * @returns 
      */
     getMonthValue : function() {
-        return moment().format('M');
+        return dayjs().format('M');
     },
     /**
      * 현재 일 반환
      * @returns 
      */
     getDayOfMonth : function() {
-        return moment().format('D');
+        return dayjs().format('D');
     },
     /**
      * 현재 시간 반환
      * @returns 
      */
     getHour : function() {
-        return moment().format('HH');
+        return dayjs().format('HH');
     },
     /**
      * 현재 분 반환
      * @returns 
      */
     getMinute : function() {
-        return moment().format('mm');
+        return dayjs().format('mm');
     }
 };
 
@@ -79,7 +101,7 @@ const StringFormat = {
      * @returns 
      */
     getStringDate : function(strDate, dateFormat) {
-        return moment(strDate, ["YYYYMMDD"], true).format(dateFormat);
+        return dayjs(strDate, ["YYYYMMDD"], true).format(dateFormat);
     },
     /**
      * yyyyMMddHHmmss 형식의 String 타입을 해당 포맷의 String 타입으로 반환
@@ -88,7 +110,7 @@ const StringFormat = {
      * @returns 
      */
     getStringDateTime : function(strDate, dateFormat) {
-        return moment(strDate, ["YYYYMMDDHHmmss"], true).format(dateFormat);
+        return dayjs(strDate, ["YYYYMMDDHHmmss"], true).format(dateFormat);
     }
 };
 
@@ -103,9 +125,9 @@ const Convert = {
      */
     getStringToDate : function(strDate) {
         if (strDate.length === 14) {
-            return moment(strDate, ["YYYYMMDDHHmmss"], true).toDate();
+            return dayjs(strDate, ["YYYYMMDDHHmmss"], true).toDate();
         } else {
-            return moment(strDate, ["YYYYMMDD"], true).toDate();
+            return dayjs(strDate, ["YYYYMMDD"], true).toDate();
         }
     },
     /**
@@ -114,7 +136,7 @@ const Convert = {
      * @returns 
      */
     getDateToString : function(date) {
-        return moment(date).format('YYYYMMDD');
+        return dayjs(date).format('YYYYMMDD');
     },
     /**
      * Date 타입 객체를 해당 포맷의 String 타입으로 반환
@@ -123,7 +145,7 @@ const Convert = {
      * @returns 
      */
     getDateToStringFormat : function(date, dateFormat) {
-        return moment(date).format(dateFormat);
+        return dayjs(date).format(dateFormat);
     }
 };
 
@@ -139,7 +161,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusDay : function(days) {
-        return moment().add(days, 'days').format(FORMAT.YYYYMMDD);
+        return dayjs().add(days, 'days').format(FORMAT.YYYYMMDD);
     },
     /**
      * yyyyMMdd 형식의 String 타입 날짜의 이전/이후 날짜를 yyyyMMdd 형식의 String 타입으로 반환
@@ -150,7 +172,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusDayString : function(strDate, days) {
-        return moment(strDate, ["YYYYMMDD"], true).add(days, 'days').format(FORMAT.YYYYMMDD);
+        return dayjs(strDate, ["YYYYMMDD"], true).add(days, 'days').format(FORMAT.YYYYMMDD);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 yyyyMMdd 형식의 String 타입으로 반환
@@ -160,7 +182,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusMonth : function(months) {
-        return moment().add(months, 'months').format(FORMAT.YYYYMMDD);
+        return dayjs().add(months, 'months').format(FORMAT.YYYYMMDD);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 해당 포맷 형식의 String 타입으로 반환
@@ -171,7 +193,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusMonthFormat : function(months, dateForamt) {
-        return moment().add(months, 'months').format(dateForamt);
+        return dayjs().add(months, 'months').format(dateForamt);
     },
     /**
      * yyyyMMdd 형식의 String 타입 날짜의 이전/이후 날짜를 yyyyMMdd 형식의 String 타입으로 반환
@@ -182,7 +204,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusMonthString : function(strDate, months) {
-        return moment(strDate, ["YYYYMMDD"], true).add(months, 'months').format(FORMAT.YYYYMMDD);
+        return dayjs(strDate, ["YYYYMMDD"], true).add(months, 'months').format(FORMAT.YYYYMMDD);
     },
     /**
      * 해당 포맷 형식의 String 타입 날짜의 이전/이후 날짜를 해당 포맷 형식의 String 타입으로 반환
@@ -194,7 +216,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusMonthStringFormat : function(strDate, months, dateForamt) {
-        return moment(strDate, [dateForamt], true).add(months, 'months').format(dateForamt);
+        return dayjs(strDate, [dateForamt], true).add(months, 'months').format(dateForamt);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 yyyyMMdd 형식의 String 타입으로 반환
@@ -204,7 +226,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusYear : function(years) {
-        return moment().add(years, 'years').format(FORMAT.YYYYMMDD);
+        return dayjs().add(years, 'years').format(FORMAT.YYYYMMDD);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 해당 포맷 형식의 String 타입으로 반환
@@ -215,7 +237,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusYearFormat : function(years, dateForamt) {
-        return moment().add(years, 'years').format(dateForamt);
+        return dayjs().add(years, 'years').format(dateForamt);
     },
     /**
      * yyyyMMdd 형식의 String 타입 날짜의 이전/이후 날짜를 yyyyMMdd 형식의 String 타입으로 반환
@@ -226,7 +248,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusYearString : function(strDate, years) {
-        return moment(strDate, ["YYYYMMDD"], true).add(years, 'years').format(FORMAT.YYYYMMDD);
+        return dayjs(strDate, ["YYYYMMDD"], true).add(years, 'years').format(FORMAT.YYYYMMDD);
     },
     /**
      * 해당 포맷 형식의 String 타입 날짜의 이전/이후 날짜를 해당 포맷 형식의 String 타입으로 반환
@@ -238,7 +260,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusYearStringFormat : function(strDate, years, dateForamt) {
-        return moment(strDate, [dateForamt], true).add(years, 'years').format(dateForamt);
+        return dayjs(strDate, [dateForamt], true).add(years, 'years').format(dateForamt);
     }
 };
 
@@ -254,7 +276,7 @@ const CalcTime = {
      * @returns 
      */
     plusMinusHour : function(hours) {
-        return moment().add(hours, 'hours').format(FORMAT.YYYYMMDDHHMMSS);
+        return dayjs().add(hours, 'hours').format(FORMAT.YYYYMMDDHHMMSS);
     },
     /**
      * yyyyMMddHHmmss 형식의 String 타입 날짜의 이전/이후 날짜를 yyyyMMddHHmmss 형식의 String 타입으로 반환
@@ -265,7 +287,7 @@ const CalcTime = {
      * @returns 
      */
     plusMinusHourString : function(strDate, hours) {
-        return moment(strDate, ["YYYYMMDDHHmmss"], true).add(hours, 'hours').format(FORMAT.YYYYMMDDHHMMSS);
+        return dayjs(strDate, ["YYYYMMDDHHmmss"], true).add(hours, 'hours').format(FORMAT.YYYYMMDDHHMMSS);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 yyyyMMddHHmmss 형식의 String 타입으로 반환
@@ -275,7 +297,7 @@ const CalcTime = {
      * @returns 
      */
     plusMinusMinute : function(minutes) {
-        return moment().add(minutes, 'minutes').format(FORMAT.YYYYMMDDHHMMSS);
+        return dayjs().add(minutes, 'minutes').format(FORMAT.YYYYMMDDHHMMSS);
     },
     /**
      * yyyyMMddHHmmss 형식의 String 타입 날짜의 이전/이후 날짜를 yyyyMMddHHmmss 형식의 String 타입으로 반환
@@ -286,7 +308,7 @@ const CalcTime = {
      * @returns 
      */
     plusMinusMinuteString : function(strDate, minutes) {
-        return moment(strDate, ["YYYYMMDDHHmmss"], true).add(minutes, 'minutes').format(FORMAT.YYYYMMDDHHMMSS);
+        return dayjs(strDate, ["YYYYMMDDHHmmss"], true).add(minutes, 'minutes').format(FORMAT.YYYYMMDDHHMMSS);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 yyyyMMddHHmmss 형식의 String 타입으로 반환
@@ -296,7 +318,7 @@ const CalcTime = {
      * @returns 
      */
     plusMinusSecond : function(seconds) {
-        return moment().add(seconds, 'seconds').format(FORMAT.YYYYMMDDHHMMSS);
+        return dayjs().add(seconds, 'seconds').format(FORMAT.YYYYMMDDHHMMSS);
     }
 };
 
@@ -311,9 +333,9 @@ const GetDateInterval = {
      * @returns 
      */
     intervalYears : function(strFixDate) {
-        let fixDate = moment(strFixDate, ["YYYYMMDD"], true).toDate();
-        let targetDate = moment().toDate();
-        let result = moment.duration(fixDate - targetDate).asYears();
+        let fixDate = dayjs(strFixDate, ["YYYYMMDD"], true).toDate();
+        let targetDate = dayjs().toDate();
+        let result = dayjs.duration(fixDate - targetDate).asYears();
         return Object.is(Math.round(result), -0) ? 0 : Math.round(result);
     },
     /**
@@ -323,9 +345,9 @@ const GetDateInterval = {
      * @returns 
      */
     intervalMonths : function(strFixDate) {
-        let fixDate = moment(strFixDate, ["YYYYMMDD"], true).toDate();
-        let targetDate = moment().toDate();
-        let result = moment.duration(fixDate - targetDate).asMonths();
+        let fixDate = dayjs(strFixDate, ["YYYYMMDD"], true).toDate();
+        let targetDate = dayjs().toDate();
+        let result = dayjs.duration(fixDate - targetDate).asMonths();
         return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     },
     /**
@@ -335,9 +357,9 @@ const GetDateInterval = {
      * @returns 
      */
     intervalDays : function(strFixDate) {
-        let fixDate = moment(strFixDate, ["YYYYMMDD"], true).toDate();
-        let targetDate = moment().toDate();
-        let result = moment.duration(fixDate - targetDate).asDays();
+        let fixDate = dayjs(strFixDate, ["YYYYMMDD"], true).toDate();
+        let targetDate = dayjs().toDate();
+        let result = dayjs.duration(fixDate - targetDate).asDays();
         return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     }
 };
@@ -353,9 +375,9 @@ const GetTimeInterval = {
      * @returns 
      */
     intervalHours : function(strFixDate) {
-        let fixDate = moment(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
-        let targetDate = moment().toDate();
-        let result = moment.duration(fixDate - targetDate).asHours();
+        let fixDate = dayjs(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
+        let targetDate = dayjs().toDate();
+        let result = dayjs.duration(fixDate - targetDate).asHours();
         return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     },
     /**
@@ -365,9 +387,9 @@ const GetTimeInterval = {
      * @returns 
      */
     intervalMinutes : function(strFixDate) {
-        let fixDate = moment(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
-        let targetDate = moment().toDate();
-        let result = moment.duration(fixDate - targetDate).asMinutes();
+        let fixDate = dayjs(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
+        let targetDate = dayjs().toDate();
+        let result = dayjs.duration(fixDate - targetDate).asMinutes();
         return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     },
     /**
@@ -377,13 +399,12 @@ const GetTimeInterval = {
      * @returns 
      */
     intervalSeconds : function(strFixDate) {
-        let fixDate = moment(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
-        let targetDate = moment().toDate();
-        let result = moment.duration(fixDate - targetDate).asSeconds();
+        let fixDate = dayjs(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
+        let targetDate = dayjs().toDate();
+        let result = dayjs.duration(fixDate - targetDate).asSeconds();
         return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
     }
 };
-
 /**
  * 요일 구하기
  */
@@ -393,7 +414,7 @@ const GetDayOfWeek = {
      * @returns 
      */
     getDayOfWeek : function() {
-        return moment().day();
+        return dayjs().day();
     },
     /**
      * yyyyMMdd 형식의 String 타입 날짜의 요일 구하기
@@ -401,14 +422,14 @@ const GetDayOfWeek = {
      * @returns 
      */
     getDayOfWeekString : function(strDate) {
-        return moment(strDate, ["YYYYMMDD"], true).day();
+        return dayjs(strDate, ["YYYYMMDD"], true).day();
     },
     /**
      * 현재 날짜의 1일의 요일 반환
      * @returns 
      */
     getFirstDayOfWeek : function() {
-        return moment().date(1).day();
+        return dayjs().date(1).day();
     },
     /**
      * yyyyMMdd 형식의 String 타입에 해당하는 1일의 요일 반환
@@ -416,16 +437,16 @@ const GetDayOfWeek = {
      * @returns 
      */
     getFirstDayOfWeekString : function(strDate) {
-        return moment(strDate, ["YYYYMMDD"], true).date(1).day();
+        return dayjs(strDate, ["YYYYMMDD"], true).date(1).day();
     },
     /**
      * 현재 날짜의 로케일 요일 구하기
-     *   - Locale 목록 : https://www.ge.com/digital/documentation/predix-services/c_custom_locale_support.html
+     *   - Locale 목록 : https://github.com/iamkun/dayjs/tree/dev/src/locale
      * @param {string} locale 
      * @returns 
      */
     getDayOfWeekLocale : function(locale) {
-        return moment().locale(locale).format('dd');
+        return dayjs().locale(locale).format('dd');
     },
     /**
      * yyyyMMdd 형식의 String 타입 날짜의 한글 요일 구하기
@@ -434,7 +455,7 @@ const GetDayOfWeek = {
      * @returns 
      */
     getDayOfWeekLocaleString : function(strDate, locale) {
-        return moment(strDate, ["YYYYMMDD"], true).locale(locale).format('dd');
+        return dayjs(strDate, ["YYYYMMDD"], true).locale(locale).format('dd');
     }
 };
 
@@ -447,13 +468,13 @@ const GetDayOfMonth = {
      * @returns 
      */
     getLastDayOfMonth : function() {
-        return moment().daysInMonth();
+        return dayjs().daysInMonth();
     },
     /**
      * 현재 날짜의 마지막 일자를 yyyyMMdd 형식으로 반환
      */
     getLastDayOfMonthString: function() {
-        return moment().endOf('month').format('YYYYMMDD');
+        return dayjs().endOf('month').format('YYYYMMDD');
     },
     /**
      * yyyyMMdd 형식의 String 타입에 해당하는 월의 마지막 일자를 반환
@@ -462,7 +483,7 @@ const GetDayOfMonth = {
      * @returns 
      */
     getLastDayOfMonthForDate : function(strDate) {
-        return moment(strDate, ["YYYYMMDD"], true).daysInMonth();
+        return dayjs(strDate, ["YYYYMMDD"], true).daysInMonth();
     },
     /**
      * yyyyMMdd 형식의 String 타입에 해당하는 월의 마지막 일자를 yyyyMMdd 형식으로 반환
@@ -471,8 +492,8 @@ const GetDayOfMonth = {
      * @returns 
      */
     getLastDayOfMonthStringForDate: function(strDate) {
-        const daysInMonth = moment(strDate, ["YYYYMMDD"], true).daysInMonth();
-        const lastDay = moment(strDate, ["YYYYMMDD"], true).date(daysInMonth);
+        const daysInMonth = dayjs(strDate, ["YYYYMMDD"], true).daysInMonth();
+        const lastDay = dayjs(strDate, ["YYYYMMDD"], true).date(daysInMonth);
         return lastDay.format('YYYYMMDD');
     }
 };
@@ -486,7 +507,7 @@ const UnixTimestamp = {
      * @returns 
      */
     currentMillis : function() {
-        return moment().valueOf();
+        return dayjs().valueOf();
     },
     /**
      * milliseconds to Date
@@ -494,7 +515,7 @@ const UnixTimestamp = {
      * @returns 
      */
     millsToDate : function(mills) {
-        return moment(mills).toDate();
+        return dayjs(mills).toDate();
     },
     /**
      * current Unix Timestamp
@@ -502,7 +523,7 @@ const UnixTimestamp = {
      * @returns 
      */
     getUnixTimestamp : function() {
-        return moment().unix();
+        return dayjs().unix();
     },
     /**
      * timestamp to Date
@@ -510,7 +531,7 @@ const UnixTimestamp = {
      * @returns 
      */
     timestampToDate : function(timestamp) {
-        return moment(timestamp * 1000).toDate();
+        return dayjs(timestamp * 1000).toDate();
     }
 };
 
@@ -524,7 +545,7 @@ const Check = {
      * @returns 
      */
     isLastWeekOfMonth : function(strDate) {
-        const date = moment(strDate, ["YYYYMMDD"], true);
+        const date = dayjs(strDate, ["YYYYMMDD"], true);
         const lastDayOfMonth = date.clone().endOf('month');
         const startOfLastWeek = lastDayOfMonth.clone().startOf('week');
         return date.isSameOrAfter(startOfLastWeek);
@@ -535,11 +556,69 @@ const Check = {
      * @returns 
      */
     isFistWeekOfMonth : function(strDate) {
-        const date = moment(strDate, ["YYYYMMDD"], true);
+        const date = dayjs(strDate, ["YYYYMMDD"], true);
         const firstDayOfMonth = date.clone().startOf('month');
         const endOfFirstWeek = firstDayOfMonth.clone().endOf('week');
         return date.isSameOrBefore(endOfFirstWeek);
     }
 };
 
-export {Today, StringFormat, Convert, CalcDate, CalcTime, GetDateInterval, GetTimeInterval, GetDayOfWeek, GetDayOfMonth, UnixTimestamp, Check}
+/**
+ * 날짜 설정
+ * - 이후 다음 함수를 사용하여 String 타입으로 변환
+ * - Convert.getDateToString(date), Convert.getDateToStringFormat(date, dateFormat)
+ */
+const SetDate = {
+    /**
+     * 연, 월, 일로 Date 객체 구하기
+     * @param {number} year 
+     * @param {number} month 
+     * @param {number} day 
+     * @returns 
+     */
+    getDateByYearMonthDay : function(year, month, day) {
+        const momentObj = dayjs().year(year).month(month).date(day);
+        return momentObj.toDate();
+    },
+    /**
+     * 연, 월, 일, 시로 Date 객체 구하기
+     * @param {number} year 
+     * @param {number} month 
+     * @param {number} day 
+     * @param {number} hour 
+     * @returns 
+     */
+    getDateByYearMonthDayHour : function(year, month, day, hour) {
+        const momentObj = dayjs().year(year).month(month).date(day).hour(hour);
+        return momentObj.toDate();
+    },
+    /**
+     * 연, 월, 일, 시, 분으로 Date 객체 구하기
+     * @param {number} year 
+     * @param {number} month 
+     * @param {number} day 
+     * @param {number} hour 
+     * @param {number} minute 
+     * @returns 
+     */
+    getDateByYearMonthDayHourMinute : function(year, month, day, hour, minute) {
+        const momentObj = dayjs().year(year).month(month).date(day).hour(hour).minute(minute);
+        return momentObj.toDate();
+    },
+    /**
+     * 연, 월, 일, 시, 분, 초로 Date 객체 구하기
+     * @param {number} year 
+     * @param {number} month 
+     * @param {number} day 
+     * @param {number} hour 
+     * @param {number} minute 
+     * @param {number} second 
+     * @returns 
+     */
+    getDateByYearMonthDayHourMinuteSecond : function(year, month, day, hour, minute, second) {
+        const momentObj = dayjs().year(year).month(month).date(day).hour(hour).minute(minute).second(second);
+        return momentObj.toDate();
+    }
+};
+
+export {Today, StringFormat, Convert, CalcDate, CalcTime, GetDateInterval, GetTimeInterval, GetDayOfWeek, GetDayOfMonth, UnixTimestamp, Check, SetDate}
