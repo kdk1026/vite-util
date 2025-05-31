@@ -34,7 +34,7 @@ export const download = (blob, fileName) => {
  * @returns 
  */
 export const getFileExt = (fileObj) => {
-    if ( !fileObj || !fileObj.name ) {
+    if ( !fileObj?.name ) {
         console.error("Invalid file object provided.");
         return null;
     }
@@ -83,7 +83,6 @@ export const getMediaUrl = (blob) => {
         return;
     }
 
-    // window.URL.createObjectURL(new Blob([blob])); 동일
     return window.URL.createObjectURL(blob);
 };
 
@@ -108,7 +107,7 @@ export const MAX_FILE_SIZE = 20 * 1024 * 1024;
  * @returns 
  */
 export const checkFileSize = (fileObj, maxFileSize) => {
-    if ( !fileObj || !fileObj.name ) {
+    if ( !fileObj?.name ) {
         console.error("Invalid file object provided.");
         return null;
     }

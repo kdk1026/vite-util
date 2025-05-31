@@ -1,5 +1,5 @@
 /**
- * 
+ * 모바일 브라우저 여부 체크
  * @returns 
  */
 export const isMobile = () => {
@@ -15,7 +15,7 @@ export const isMobile = () => {
 };
 
 /**
- * 
+ * 모바일 브라우저 여부 체크 (브라우저 모바일 모드도 모바일로 인식)
  * @returns 
  */
 export const isUserAgentMobile = () => {
@@ -31,7 +31,7 @@ export const isUserAgentMobile = () => {
 }
 
 /**
- * 
+ * Android, iOS 여부 체크
  * @returns 
  */
 export const isMobileOs = () => {
@@ -50,9 +50,13 @@ export const isMobileOs = () => {
 };
 
 /**
- * 
+ * UserAgent 에서 특정 문자열 유무 체크
  * @param {string} checkString 
  * @returns 
+ * 
+ * @example
+ * 주로 모바일 협업 시, 애플리케이션 접속 판별로 사용
+ * - 커스터마이징 하지 않는 이상 모바일 웹, WebView 의 UserAgent는 동일
  */
 export const isCheckUserAgent = (checkString) => {
     if ( typeof checkString !== 'string' || !checkString?.trim() ) {
@@ -78,7 +82,7 @@ export const isCheckUserAgent = (checkString) => {
  * @param {string} host 
  * @param {string} scheme 
  * @param {string} packageName 
- * @param {undefined|screen} screen
+ * @param {undefined|string} screen
  * @returns 
  */
 export const makeAndroidAppLinkUrl = (host, scheme, packageName, screen) => {
@@ -105,7 +109,7 @@ export const makeAndroidAppLinkUrl = (host, scheme, packageName, screen) => {
  * 여기에 입력된 스키마가 makeURLSchemeIOSAppLinkUrl 함수의 'scheme' 매개변수와 일치해야 합니다.
  * @param {string} host 
  * @param {string} scheme 
- * @param {undefined|screen} screen
+ * @param {undefined|string} screen
  * @returns 
  */
 export const makeURLSchemeIOSAppLinkUrl = (host, scheme, screen) => {
@@ -122,10 +126,12 @@ export const makeURLSchemeIOSAppLinkUrl = (host, scheme, screen) => {
 };
 
 /**
- * 
+ * 앱링크 or 딥링크 실행
  * @param {string} androidUrl 
  * @param {string} iosUrl 
  * @param {string} iosAppStoreUrl 
+ * 
+ * @link https://gomest.tistory.com/7
  */
 export const runAppLinkUrl = (androidUrl, iosUrl, iosAppStoreUrl) => {
     if ( !androidUrl || !iosUrl || !iosAppStoreUrl ) {

@@ -1,3 +1,8 @@
+/**
+ * JSON String을 Object로 변환
+ * @param {string} jsonStr 
+ * @returns 
+ */
 export const jsonToObject = (jsonStr) => {
     if ( typeof jsonStr !== 'string' || !jsonStr?.trim() ) {
         console.error("유효하지 않은 JSON 문자열:", jsonStr);  
@@ -11,6 +16,11 @@ export const jsonToObject = (jsonStr) => {
     }
 };
 
+/**
+ * Object를 JSON String으로 변환
+ * @param {Object} obj 
+ * @returns 
+ */
 export const objectToJsonString = (obj) => {
     if ( !obj || typeof obj !== 'object' ) {
         console.error("유효하지 않은 객체:", obj);  
@@ -24,6 +34,11 @@ export const objectToJsonString = (obj) => {
     }
 };
 
+/**
+ * Object를 Tree 구조의 JSON String으로 변환
+ * @param {Object} obj 
+ * @returns 
+ */
 export const objectToJsonStringPretty = (obj) => {
     if ( !obj || typeof obj !== 'object' ) {
         console.error("유효하지 않은 객체:", obj);  

@@ -15,10 +15,11 @@ const replacements = {
 }
 
 /**
- * @param {string} str 
+ * HTML Unescape 처리
+ * @param {string} val 
  * @returns 
  */
-export const unescapeHtml = (str) => {
+export const unescapeHtml = (val) => {
     if (typeof val !== 'string') {
         return '';
     }
