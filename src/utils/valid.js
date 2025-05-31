@@ -33,13 +33,17 @@ export const isUndefined = (val) => {
  * @returns 
  */
 export const isNumber = (val) => {
-    if ( !val ) {
-        console.error('val is not defined.');
-    } else if (typeof val !== 'number') {
-        console.error('val is not a number.');
+    if (val === null || typeof val === 'undefined') {
+        return false;
     }
 
-    return /^[0-9]+$/.test(val);
+    if (typeof val === 'number') {
+        return !isNaN(val) && isFinite(val);
+    } else if (typeof val === 'string') {
+        return /^\d+$/.test(val);
+    } else {
+        return false;
+    }
 };
 
 /**
@@ -48,7 +52,7 @@ export const isNumber = (val) => {
  * @returns 
  */
 export const isEnglish = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -65,7 +69,7 @@ export const isEnglish = (val) => {
  * @returns 
  */
 export const isEngBlank = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -82,7 +86,7 @@ export const isEngBlank = (val) => {
  * @returns 
  */
 export const isEngNum = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -98,7 +102,7 @@ export const isEngNum = (val) => {
  * @param {*} val 
  */
 export const isHangul = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -115,7 +119,7 @@ export const isHangul = (val) => {
  * @returns 
  */
 export const isHanBlank = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -132,7 +136,7 @@ export const isHanBlank = (val) => {
  * @returns 
  */
 export const isHanEng = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -149,7 +153,7 @@ export const isHanEng = (val) => {
  * @returns 
  */
 export const isSpecial = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -166,7 +170,7 @@ export const isSpecial = (val) => {
  * @returns 
  */
 export const checkSpace = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -183,7 +187,7 @@ export const checkSpace = (val) => {
  * @returns 
  */
 export const isNotHangul = (val) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -202,7 +206,7 @@ export const isNotHangul = (val) => {
  * @returns 
  */
 export const isLengthOver = (val, minLen, maxLen) => {
-    if ( !val || !val.trim() ) {
+    if ( !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
     } else if (typeof val !== 'string') {
@@ -236,7 +240,7 @@ export const isLengthOver = (val, minLen, maxLen) => {
  * @returns 
  */
 export const isEmptyObject = (param) => {
-    return Object.keys(param).length === 0;
+    return Object.keys(param).length === 0 && param.constructor === Object;
 };
 
 /**
@@ -245,5 +249,5 @@ export const isEmptyObject = (param) => {
  * @returns 
  */
 export const isEmptyArray = (param) => {
-    return Array.isArray(param) && param.length === 0;
+    return Object.keys(param).length === 0 && param.constructor === Array;
 };

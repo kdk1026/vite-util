@@ -99,7 +99,7 @@ export const isBusinessRegNumber = (val1, val2, val3) => {
         val = val1 + '-' + val2 + '-' + val3;
     }
 
-    const regExp = /^[(\d{3})-?(\d{2})-?(\d{5})+$]/;
+    const regExp = /^\d{3}-?\d{2}-?\d{5}$/;
     return regExp.test(val);
 };
 
@@ -167,6 +167,6 @@ export const isUrl = (val) => {
  * @param {string} val 
  */
 export const isSafeUrl = (val) => {
-    const regExp = /^(\/[\w-]+(\/[\w-]*)*|https?:\/\/[\w-]+(\.[\w-]+)+(:\d+)?(\/\S*)?)$/;
+    const regExp = /^(?:\/|https?:\/\/(?:[\w-]+\.)+[\w-]+(?::\d+)?)\S*$/;
     return regExp.test(val);
 };

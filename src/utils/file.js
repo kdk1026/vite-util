@@ -11,7 +11,7 @@ export const download = (blob, fileName) => {
         return;
     }
 
-    if ( !fileName.trim() ) {
+    if ( !fileName?.trim() ) {
         console.error("File name is required for download.");
     } else if ( typeof fileName !== 'string' ) {
         console.error("File name must be a string.");
@@ -55,7 +55,7 @@ export const getFileName = (response, defaultFileName) => {
         return null;
     }
 
-    if ( !defaultFileName.trim() ) {
+    if ( !defaultFileName?.trim() ) {
         console.error("Default file name is required.");
         return null;
     } else if ( typeof defaultFileName !== 'string' ) {

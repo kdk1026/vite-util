@@ -36,7 +36,7 @@ export const encrypt = (text) => {
  * @returns 
  */
 export const decrypt = (encryptedText, ivStringBase64) => {
-    if ( !encryptedText || !encryptedText.trim() ) {
+    if ( !encryptedText?.trim() ) {
         console.warn("복호화할 암호문이 비어 있습니다.");
         return "";
     } else if ( typeof encryptedText !== 'string' ) {
@@ -44,7 +44,7 @@ export const decrypt = (encryptedText, ivStringBase64) => {
         return "";
     }
 
-    if ( !ivStringBase64 || !ivStringBase64.trim() ) {
+    if ( !ivStringBase64?.trim() ) {
         console.warn("복호화할 IV가 비어 있습니다.");
         return "";
     } else if ( typeof ivStringBase64 !== 'string' ) {

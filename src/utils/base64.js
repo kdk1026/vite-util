@@ -4,7 +4,7 @@
  * @returns 
  */
 export const encodeBase64 = (str) => {
-    if ( !str || typeof str !== 'string' || !str.trim() ) {
+    if ( typeof str !== 'string' || !str?.trim() ) {
         return '';
     }
 
@@ -17,7 +17,7 @@ export const encodeBase64 = (str) => {
  * @returns 
  */
 export const decodeBase64 = (str) => {
-    if ( !str || typeof str !== 'string' || !str.trim() ) {
+    if ( typeof str !== 'string' || !str?.trim() ) {
         return '';
     }
 
@@ -30,7 +30,7 @@ export const decodeBase64 = (str) => {
  * @returns 
  */
 export const encodeUnicodeBase64 = (str) => {
-    if ( !str || typeof str !== 'string' || !str.trim() ) {
+    if ( typeof str !== 'string' || !str?.trim() ) {
         return '';
     }
 
@@ -46,7 +46,7 @@ export const encodeUnicodeBase64 = (str) => {
  * @param {string} str 
  */
 export const decodeUnicodeBase64 = (str) => {
-    if ( !str || typeof str !== 'string' || !str.trim() ) {
+    if ( typeof str !== 'string' || !str?.trim() ) {
         return '';
     }
 

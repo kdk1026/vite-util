@@ -6,7 +6,7 @@ import CryptoJS from "crypto-js";
  * @returns 
  */
 export const hashMd5 = (text) => {
-    if ( !text || typeof text !== "string" || text.trim() === '' ) {
+    if ( typeof text !== "string" || !text?.trim() ) {
         console.warn("유효한 텍스트가 제공되지 않았습니다.");   
         return null;
     }
@@ -22,7 +22,7 @@ export const hashMd5 = (text) => {
  * @returns 
  */
 export const hashMd5WithSalt = (text, salt = '') => {
-    if ( !text || typeof text !== "string" || text.trim() === '' ) {
+    if ( typeof text !== "string" || !text?.trim() ) {
         console.warn("유효한 텍스트가 제공되지 않았습니다.");
         return null;
     }
@@ -44,7 +44,7 @@ export const hashMd5WithSalt = (text, salt = '') => {
  * @returns 
  */
 export const hashSha256 = (text) => {
-    if ( !text || typeof text !== "string" || text.trim() === '' ) {
+    if ( typeof text !== "string" || !text?.trim() ) {
         console.warn("유효한 텍스트가 제공되지 않았습니다.");   
         return null;
     }
@@ -60,7 +60,7 @@ export const hashSha256 = (text) => {
  * @returns 
  */
 export const hashSha256WithSalt = (text, salt = '') => {
-    if ( !text || typeof text !== "string" || text.trim() === '' ) {
+    if ( typeof text !== "string" || !text?.trim() ) {
         console.warn("유효한 텍스트가 제공되지 않았습니다.");
         return null;
     }
@@ -82,7 +82,7 @@ export const hashSha256WithSalt = (text, salt = '') => {
  * @returns 
  */
 export const hashSha512 = (text) => {
-    if ( !text || typeof text !== "string" || text.trim() === '' ) {
+    if ( typeof text !== "string" || !text?.trim() ) {
         console.warn("유효한 텍스트가 제공되지 않았습니다.");   
         return null;
     }
@@ -98,7 +98,7 @@ export const hashSha512 = (text) => {
  * @returns 
  */
 export const hashSha512WithSalt = (text, salt = '') => {
-    if ( !text || typeof text !== "string" || text.trim() === '' ) {
+    if ( typeof text !== "string" || !text?.trim() ) {
         console.warn("유효한 텍스트가 제공되지 않았습니다.");
         return null;
     }

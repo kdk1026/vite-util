@@ -1,5 +1,5 @@
 export const formatPhoneNumber = (value) => {
-    if ( !value || !value.trim() ) {
+    if ( !value?.trim() ) {
         console.warn('formatPhoneNumber: Invalid input value');
         return null;
     } else if (typeof value !== 'string') {
@@ -17,7 +17,7 @@ export const formatPhoneNumber = (value) => {
 }
 
 export const formatGeneralPhoneNumber = (value) => {
-    if ( !value || !value.trim() ) {
+    if ( !value?.trim() ) {
         console.warn('formatGeneralPhoneNumber: Invalid input value');
         return null;
     } else if (typeof value !== 'string') {
@@ -62,7 +62,7 @@ export const formatGeneralPhoneNumber = (value) => {
 }
 
 export const formatNumber = (value) => {
-    if ( !value || !value.trim() ) {
+    if ( !value?.trim() ) {
         console.warn('formatNumber: Invalid input value');
         return null;
     } else if (typeof value !== 'string') {
@@ -74,7 +74,7 @@ export const formatNumber = (value) => {
 }
 
 export const formatNumberComma = (num) => {
-    if ( !num || !num.trim() ) {
+    if ( !num?.trim() ) {
         console.warn('formatNumberComma: Invalid input value');
         return null;
     } else if (typeof num !== 'string') {

@@ -1,5 +1,5 @@
 export const jsonToObject = (jsonStr) => {
-    if ( !jsonStr || !jsonStr.trim() ) {
+    if ( !jsonStr?.trim() ) {
         console.error("유효하지 않은 JSON 문자열:", jsonStr);  
         return null;
     } else if (typeof jsonStr !== 'string') {

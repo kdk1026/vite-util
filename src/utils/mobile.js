@@ -3,14 +3,15 @@
  * @returns 
  */
 export const isMobile = () => {
-    const _filter = 'windows|macos|win16|win32|win64|macintel';
-    const _platform = navigator.userAgentData?.platform || navigator?.platform;
-
-    if( _filter.indexOf(_platform.toLowerCase()) < 0 ) {
-        return true;
-    } else {
-        return false;
+    if (navigator.userAgentData) {
+        return navigator.userAgentData.mobile;
     }
+
+    // userAgentData를 사용할 수 없는 경우 user agent 문자열을 분석합니다.
+    const userAgent = navigator.userAgent;
+
+    // 복잡도를 줄인 정규식 (정확도 저하 가능성 있음)
+    return /(mobile|android|iphone|ipod|ipad|windows phone)/i.test(userAgent);
 };
 
 /**
@@ -20,27 +21,13 @@ export const isMobile = () => {
 export const isUserAgentMobile = () => {
     const userAgent = navigator.userAgent || window.opera;
     
-    if (/android/i.test(userAgent)) {
-        return true;
-    }
-
-    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        return true;
-    }
-
-    if (/blackberry|bb10|playbook/i.test(userAgent)) {
-        return true;
-    }
-
-    if (/windows phone/i.test(userAgent)) {
-        return true;
-    }
-
-    if (/webos|touchpad|hpwos/i.test(userAgent)) {
-        return true;
-    }
-
-    return false;
+    return (
+        /android/i.test(userAgent) ||
+        (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) ||
+        /blackberry|bb10|playbook/i.test(userAgent) ||
+        /windows phone/i.test(userAgent) ||
+        /webos|touchpad|hpwos/i.test(userAgent)
+    );
 }
 
 /**
@@ -48,11 +35,18 @@ export const isUserAgentMobile = () => {
  * @returns 
  */
 export const isMobileOs = () => {
-    const _ret = {
-        Android: navigator.userAgent.match(/Android/i) == null ? false : true,
-        iOS: navigator.userAgent.match(/iPhone|iPad|iPod/i) == null ? false : true
+    const userAgent = navigator.userAgent;
+
+    const androidRegex = /Android/i;
+    const androidMatch = androidRegex.exec(userAgent);
+
+    const iOSRegex = /iPhone|iPad|iPod/i;
+    const iOSMatch = iOSRegex.exec(userAgent);
+
+    return {
+        Android: !!androidMatch,
+        iOS: !!iOSMatch
     };
-    return _ret;
 };
 
 /**
@@ -61,7 +55,7 @@ export const isMobileOs = () => {
  * @returns 
  */
 export const isCheckUserAgent = (checkString) => {
-    if ( !checkString || !checkString.trim() ) {
+    if ( !checkString?.trim() ) {
         console.error('checkString is required.');
         return false;
     } else if (typeof checkString !== 'string') {

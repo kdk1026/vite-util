@@ -10,7 +10,7 @@ const crypt = new JSEncrypt({ default_key_size: 2048 });
  * @returns 
  */
 export const rsaEncrypt = (text) => {
-    if ( !text || !text.trim() ) {
+    if ( !text?.trim() ) {
         console.warn("rsaEncrypt: text is empty or undefined");
         return null;
     } else if (typeof text !== "string") {
