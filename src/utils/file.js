@@ -50,16 +50,13 @@ export const getFileExt = (fileObj) => {
  * @returns 
  */
 export const getFileName = (response, defaultFileName) => {
-    if ( !response || !(response instanceof Response) ) {
+    if ( !(response instanceof Response) || !response.headers ) {
         console.error("Invalid response object provided.");
         return null;
     }
 
-    if ( !defaultFileName?.trim() ) {
-        console.error("Default file name is required.");
-        return null;
-    } else if ( typeof defaultFileName !== 'string' ) {
-        console.error("Default file name must be a non-empty string.");
+    if ( typeof defaultFileName !== 'string' || !defaultFileName?.trim() ) {
+        console.error("Default file name is required and must be a non-empty string.");
         return null;
     }
 

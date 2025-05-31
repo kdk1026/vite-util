@@ -1,11 +1,8 @@
 export const formatPhoneNumber = (value) => {
-    if ( !value?.trim() ) {
-        console.warn('formatPhoneNumber: Invalid input value');
+    if ( typeof value !== 'string' || !value?.trim() ) {
+        console.warn('Invalid input value');
         return null;
-    } else if (typeof value !== 'string') {
-        console.warn('formatPhoneNumber: Input value must be a string');
-        return null;
-    }    
+    }
 
     const phoneNumber = value.replace(/[^\d]/g, '');
     const phoneNumberLength = phoneNumber.length;
@@ -17,13 +14,10 @@ export const formatPhoneNumber = (value) => {
 }
 
 export const formatGeneralPhoneNumber = (value) => {
-    if ( !value?.trim() ) {
-        console.warn('formatGeneralPhoneNumber: Invalid input value');
+    if ( typeof value !== 'string' || !value?.trim() ) {
+        console.warn('Invalid input value');
         return null;
-    } else if (typeof value !== 'string') {
-        console.warn('formatGeneralPhoneNumber: Input value must be a string');
-        return null;
-    }    
+    }   
 
     const phoneNumber = value.replace(/[^\d]/g, '');
     const phoneNumberLength = phoneNumber.length;
@@ -62,11 +56,8 @@ export const formatGeneralPhoneNumber = (value) => {
 }
 
 export const formatNumber = (value) => {
-    if ( !value?.trim() ) {
-        console.warn('formatNumber: Invalid input value');
-        return null;
-    } else if (typeof value !== 'string') {
-        console.warn('formatNumber: Input value must be a string');
+    if ( typeof value !== 'string' || !value?.trim() ) {
+        console.warn('Invalid input value');
         return null;
     }
 
@@ -74,11 +65,8 @@ export const formatNumber = (value) => {
 }
 
 export const formatNumberComma = (num) => {
-    if ( !num?.trim() ) {
-        console.warn('formatNumberComma: Invalid input value');
-        return null;
-    } else if (typeof num !== 'string') {
-        console.warn('formatNumberComma: Input value must be a string');
+    if ( typeof value !== 'string' || !num?.trim() ) {
+        console.warn('Invalid input value');
         return null;
     }
 

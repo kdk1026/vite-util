@@ -52,11 +52,8 @@ export const isNumber = (val) => {
  * @returns 
  */
 export const isEnglish = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -69,11 +66,8 @@ export const isEnglish = (val) => {
  * @returns 
  */
 export const isEngBlank = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -86,11 +80,8 @@ export const isEngBlank = (val) => {
  * @returns 
  */
 export const isEngNum = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -102,11 +93,8 @@ export const isEngNum = (val) => {
  * @param {*} val 
  */
 export const isHangul = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -119,11 +107,8 @@ export const isHangul = (val) => {
  * @returns 
  */
 export const isHanBlank = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -136,11 +121,8 @@ export const isHanBlank = (val) => {
  * @returns 
  */
 export const isHanEng = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -153,11 +135,8 @@ export const isHanEng = (val) => {
  * @returns 
  */
 export const isSpecial = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -170,11 +149,8 @@ export const isSpecial = (val) => {
  * @returns 
  */
 export const checkSpace = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -187,11 +163,8 @@ export const checkSpace = (val) => {
  * @returns 
  */
 export const isNotHangul = (val) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
-        return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
         return false;
     }
 
@@ -206,24 +179,14 @@ export const isNotHangul = (val) => {
  * @returns 
  */
 export const isLengthOver = (val, minLen, maxLen) => {
-    if ( !val?.trim() ) {
+    if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
         return false;
-    } else if (typeof val !== 'string') {
-        console.error('val is not a string.');
+    }
+
+    if ( typeof minLen !== 'number' || typeof maxLen !== 'number' ) {
+        console.error('minLen or maxLen is not a number.');
         return false;
-    }
-
-    if ( !minLen ) {
-        console.error('minLen is not defined.');
-    } else if (typeof minLen !== 'number') {
-        console.error('minLen is not a number.');
-    }
-
-    if ( !maxLen ) {
-        console.error('maxLen is not defined.');
-    } else if (typeof maxLen !== 'number') {
-        console.error('maxLen is not a number.');
     }
 
     if ( minLen < 0 || maxLen < 0 || minLen > maxLen ) {

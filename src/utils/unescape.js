@@ -6,11 +6,13 @@
 
 const regex = /&(quot|amp|lt|gt|#39);/g;
 const chars = {
-    '&quot;': '"',
     '&amp;': '&',
     '&lt;': '<',
     '&gt;': '>',
+    '&quot;': '"',
+    '&#x27;': "'",
     '&#39;': "'",
+    '&#x2F;': '/'
 }
 
 /**
@@ -18,12 +20,8 @@ const chars = {
  * @returns 
  */
 export const unescapeHtml = (str) => {
-    if ( !str?.trim() ) {
-        console.warn('unescapeHtml: str is empty');
-        return null;
-    } else if (typeof str !== 'string') {
-        console.warn('unescapeHtml: str is not a string');
-        return null;
+    if (typeof val !== 'string') {
+        return '';
     }
 
     if ( regex.test(str) ) {
