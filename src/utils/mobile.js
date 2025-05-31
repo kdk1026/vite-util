@@ -55,11 +55,8 @@ export const isMobileOs = () => {
  * @returns 
  */
 export const isCheckUserAgent = (checkString) => {
-    if ( !checkString?.trim() ) {
-        console.error('checkString is required.');
-        return false;
-    } else if (typeof checkString !== 'string') {
-        console.error('checkString must be a string.');
+    if ( typeof checkString !== 'string' || !checkString?.trim() ) {
+        console.error('checkString must be a non-empty string.');
         return false;
     }
 

@@ -10,12 +10,9 @@ const crypt = new JSEncrypt({ default_key_size: 2048 });
  * @returns 
  */
 export const rsaEncrypt = (text) => {
-    if ( !text?.trim() ) {
-        console.warn("rsaEncrypt: text is empty or undefined");
-        return null;
-    } else if (typeof text !== "string") {
-        console.warn("rsaEncrypt: text must be a string");
-        return null;
+    if ( typeof text !== 'string' || !text?.trim() ) {
+        console.error("암호화할 텍스트는 유효한 문자열이어야 합니다.");
+        return '';
     }
 
     crypt.setPublicKey(base64PublicKey);

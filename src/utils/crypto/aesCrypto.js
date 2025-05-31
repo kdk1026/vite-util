@@ -36,20 +36,14 @@ export const encrypt = (text) => {
  * @returns 
  */
 export const decrypt = (encryptedText, ivStringBase64) => {
-    if ( !encryptedText?.trim() ) {
-        console.warn("복호화할 암호문이 비어 있습니다.");
-        return "";
-    } else if ( typeof encryptedText !== 'string' ) {
-        console.error("복호화할 암호문은 문자열이어야 합니다.");
-        return "";
+    if ( typeof encryptedText !== 'string' || !encryptedText?.trim() ) {
+        console.error("복호화할 암호문은 유효한 문자열이어야 합니다.");
+        return '';
     }
 
-    if ( !ivStringBase64?.trim() ) {
-        console.warn("복호화할 IV가 비어 있습니다.");
-        return "";
-    } else if ( typeof ivStringBase64 !== 'string' ) {
-        console.error("복호화할 IV는 문자열이어야 합니다.");
-        return "";
+    if ( typeof ivStringBase64 !== 'string' || !ivStringBase64?.trim() ) {
+        console.error("IV는 유효한 Base64 문자열이어야 합니다.");
+        return '';
     }
 
     const iv = CryptoJS.enc.Base64.parse(ivStringBase64);
