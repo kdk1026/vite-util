@@ -8,12 +8,9 @@ const secretKey = import.meta.env.VITE_AES_SECRET_KEY;
  * @returns {{encryptedText: string, iv: string}} - 암호화된 텍스트와 IV (모두 Base64 인코딩)
  */
 export const encrypt = (text) => {
-    if ( !text || !text.trim() ) {
-        console.warn("암호화할 텍스트가 비어 있습니다.");
-        return {};
-    } else if ( typeof text !== 'string' ) {
-        console.error("암호화할 텍스트는 문자열이어야 합니다.");
-        return {};
+    if ( typeof text !== 'string' || !text?.trim() ) {
+        console.error("암호화할 텍스트는 유효한 문자열이어야 합니다.");
+        return { encryptedText: '', iv: '' };
     }
 
     const iv = CryptoJS.lib.WordArray.random(16);

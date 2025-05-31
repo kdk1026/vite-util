@@ -1,7 +1,7 @@
 export const getSessionStorageSize = () => {
     let total = 0;
     for (let key in sessionStorage) {
-        if (Object.prototype.hasOwnProperty.call(sessionStorage, key)) {
+        if (Object.hasOwn(sessionStorage, key)) {
             total += sessionStorage[key].length * 2; // UTF-16 문자의 바이트 수
         }
     }

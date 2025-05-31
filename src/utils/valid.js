@@ -140,7 +140,7 @@ export const isSpecial = (val) => {
         return false;
     }
 
-    return /[\W]+$/.test(val);
+    return /\W+$/.test(val);
 };
 
 /**
