@@ -24,6 +24,7 @@
     "html-entities": "^2.5.2",
     "jsencrypt": "^3.3.2",
     "jwt-decode": "^4.0.0",
+    "libphonenumber-js": "^1.12.8",
     "moment": "^2.30.1"
   }
 }
