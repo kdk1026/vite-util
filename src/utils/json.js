@@ -1,4 +1,10 @@
 /**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.05.23
+ * @version 1.0
+ */
+
+/**
  * JSON String을 Object로 변환
  * @param {string} jsonStr 
  * @returns 

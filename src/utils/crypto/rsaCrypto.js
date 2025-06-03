@@ -1,3 +1,10 @@
+/**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.03.02
+ * @version 1.0
+ * @description Front 에서는 암호화만 해서 전송만 한다.
+ */
+
 import JSEncrypt from "jsencrypt";
 
 const base64PublicKey = import.meta.env.VITE_RSA_BASE64_PUBLIC_KEY;
@@ -18,5 +25,3 @@ export const rsaEncrypt = (text) => {
     crypt.setPublicKey(base64PublicKey);
     return crypt.encrypt(text);
 };
-
-// Front 에서는 암호화만 해서 전송만 한다.

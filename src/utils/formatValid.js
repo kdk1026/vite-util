@@ -1,4 +1,10 @@
 /**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.05.30
+ * @version 1.0
+ */
+
+/**
  * 날짜 형식 체크 (YYYYMMDD, YYYY-MM-DD)
  * @param {string} val 
  * @returns 

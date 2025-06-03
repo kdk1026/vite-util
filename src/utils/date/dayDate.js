@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
-
-// Moment.js와 거의 동일한 API를 사용하는 Day.js 사용
-// XXX 테스트는 해보지 못함
-
-/*
+/**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.05.30
+ * @version 1.0
+ * @description Moment.js와 거의 동일한 API를 사용하는 Day.js 사용
+ * @description
     Moment.js와 달리 변경이 불가능(immutable)하기 때문에
     이미 변수에 Day.js 객체의 날짜를 메소드로 변경할 경우 변수에 재할당해주어야 한다.
 
@@ -20,7 +20,9 @@ import dayjs from "dayjs";
         dateWithDay = dateWithDay.add(7, 'day') // 7일 추가 + 재할당
         console.log(dateWithDay.format('YYYY-MM-DD')) // '2023-11-09'
     ```
-*/
+ */
+
+import dayjs from "dayjs";
 
 const FORMAT = {
     YYYYMMDD : 'YYYYMMDD',

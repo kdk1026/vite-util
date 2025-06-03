@@ -1,3 +1,12 @@
+/**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.03.04
+ * @version 1.0
+ */
+
+/**
+ * sessionStorage 사용량
+ */
 export const getSessionStorageSize = () => {
     let total = 0;
     for (let key in sessionStorage) {

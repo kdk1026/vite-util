@@ -1,4 +1,10 @@
 /**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.05.30
+ * @version 1.0
+ */
+
+/**
  * 순수 아스키 문자열 Base64 인코딩
  * @param {string} str 
  * @returns 

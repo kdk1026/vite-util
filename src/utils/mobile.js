@@ -1,4 +1,10 @@
 /**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.02.28
+ * @version 1.0
+ */
+
+/**
  * 모바일 브라우저 여부 체크
  * @returns 
  */
