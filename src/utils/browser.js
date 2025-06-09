@@ -9,21 +9,21 @@ export const getBrowser = () => {
         return "Unknown";
     }
 
-    if (userAgent.contains("samsungbrowser")) {
+    if (userAgent.includes("samsungbrowser")) {
         return "Samsung Internet";
-    } else if (userAgent.contains("whale")) {
+    } else if (userAgent.includes("whale")) {
         return "Whale";
-    } else if (userAgent.contains("edge")) {
+    } else if (userAgent.includes("edge")) {
         return "Microsoft Edge";
-    } else if (userAgent.contains("opr") || userAgent.contains("opera")) {
+    } else if (userAgent.includes("opr") || userAgent.includes("opera")) {
         return "Opera";
-    } else if (userAgent.contains("chrome")) {
+    } else if (userAgent.includes("chrome")) {
         return "Chrome";
-    } else if (userAgent.contains("firefox")) {
+    } else if (userAgent.includes("firefox")) {
         return "Firefox";
-    } else if (userAgent.contains("safari") && !userAgent.contains("chrome")) {
+    } else if (userAgent.includes("safari") && !userAgent.includes("chrome")) {
         return "Safari";
-    } else if (userAgent.contains("msie") || userAgent.contains("trident")) {
+    } else if (userAgent.includes("msie") || userAgent.includes("trident")) {
         return "Internet Explorer";
     } else {
         return "Other";
