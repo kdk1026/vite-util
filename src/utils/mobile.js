@@ -70,8 +70,8 @@ export const isCheckUserAgent = (checkString) => {
         return false;
     }
 
-    const _agent = navigator.userAgent;
-    return _agent.indexOf(checkString) > -1;
+    const agent = navigator.userAgent;
+    return agent.indexOf(checkString) > -1;
 };
 
 /**

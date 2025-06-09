@@ -9,23 +9,27 @@ export const getBrowser = () => {
         return "Unknown";
     }
 
-    if (userAgent.includes("samsungbrowser")) {
-        return "Samsung Internet";
-    } else if (userAgent.includes("whale")) {
-        return "Whale";
-    } else if (userAgent.includes("edge")) {
-        return "Microsoft Edge";
-    } else if (userAgent.includes("opr") || userAgent.includes("opera")) {
-        return "Opera";
-    } else if (userAgent.includes("chrome")) {
-        return "Chrome";
-    } else if (userAgent.includes("firefox")) {
-        return "Firefox";
-    } else if (userAgent.includes("safari") && !userAgent.includes("chrome")) {
-        return "Safari";
-    } else if (userAgent.includes("msie") || userAgent.includes("trident")) {
-        return "Internet Explorer";
-    } else {
-        return "Other";
-    }    
+    const browserMap = [
+        { name: "Samsung Internet", keywords: ["samsungbrowser"] },
+        { name: "Whale", keywords: ["whale"] },
+        { name: "Microsoft Edge", keywords: ["edge"] },
+        { name: "Opera", keywords: ["opr", "opera"] },
+        { name: "Chrome", keywords: ["chrome"] },
+        { name: "Firefox", keywords: ["firefox"] },
+        { name: "Safari", keywords: ["safari"] },
+        { name: "Internet Explorer", keywords: ["msie", "trident"] }
+    ];
+
+    for (const browser of browserMap) {
+        for (const keyword of browser.keywords) {
+            if (userAgent.includes(keyword)) {
+                if (browser.name === "Safari" && userAgent.includes("chrome")) {
+                    continue; // Chrome이 포함되어 있으면 Safari로 간주하지 않음
+                }
+                return browser.name;
+            }
+        }
+    }
+
+    return "Other";
 };
