@@ -125,3 +125,12 @@ export const checkFileSize = (fileObj, maxFileSize) => {
     const fileSize = fileObj.size;
     return fileSize > maxFileSize;
 };
+
+/**
+ * PDF 새 탭으로 열기
+ * @param {Blob} data 
+ */
+export const openPdfInNewTab = (data) => {
+    const url = window.URL.createObjectURL(new Blob([data], { type: "application/pdf" }));
+    window.open(url, "_blank");
+};
