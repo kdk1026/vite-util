@@ -6,14 +6,14 @@
 
 /**
  * SPA 에서 파일 다운로드
- *   - axios : response.data
- *   - fetch : response.blob()
- * @param {Blob} blob 
+ *   - axios : response.data (ArrayBuffer)
+ *   - fetch : response.blob() (Blob)
+ * @param {ArrayBuffer|Blob} data 
  * @param {string} fileName 
  */
-export const download = (blob, fileName) => {
-    if ( !blob || !(blob instanceof Blob) ) {
-        console.error("Invalid blob object provided for download.");
+export const download = (data, fileName) => {
+    if ( !data || (!(data instanceof ArrayBuffer) && !(data instanceof Blob)) ) {
+        console.error("Invalid data provided for download. Expected ArrayBuffer or Blob.");
         return;
     }
 
@@ -24,7 +24,7 @@ export const download = (blob, fileName) => {
         return;
     }
 
-    const url = window.URL.createObjectURL(new Blob([blob]));
+    const url = window.URL.createObjectURL(new Blob([data]));
     const a = document.createElement("a");
     a.href = url;
     a.setAttribute("download", fileName);

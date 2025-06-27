@@ -61,3 +61,24 @@ export const decodeUnicodeBase64 = (str) => {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
 };
+
+/**
+ * Blob 데이터를 Base64 인코딩
+ * - 모바일 웹뷰에서 파일 다운로드 처리로 인터페이스로 전달
+ * @param {Blob} blob 
+ * @returns 
+ */
+export const blobToEncodeBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            console.log('reader.result:', reader.result);
+            resolve(reader.result);
+        };
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(blob);
+    });
+};
