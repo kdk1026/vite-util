@@ -81,15 +81,15 @@ export const getFileName = (response, defaultFileName) => {
 
 /**
  * 바니어리 데이터를 이미지, 동영상, 오디오 등 다양한 미디어 데이터를 처리하기 위한 URL로 반환
- * @param {Blob} blob 
+ * @param {ArrayBuffer|Blob} data  
  */
-export const getMediaUrl = (blob) => {
-    if ( !blob || !(blob instanceof Blob) ) {
-        console.error("Invalid blob object provided for download.");
+export const getMediaUrl = (data) => {
+    if ( !data || (!(data instanceof ArrayBuffer) && !(data instanceof Blob)) ) {
+        console.error("Invalid data provided for download. Expected ArrayBuffer or Blob.");
         return;
     }
 
-    return window.URL.createObjectURL(blob);
+    return window.URL.createObjectURL(data);
 };
 
 export const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp'];
@@ -128,9 +128,14 @@ export const checkFileSize = (fileObj, maxFileSize) => {
 
 /**
  * PDF 새 탭으로 열기
- * @param {Blob} data 
+ * @param {ArrayBuffer|Blob} data 
  */
 export const openPdfInNewTab = (data) => {
+    if ( !data || (!(data instanceof ArrayBuffer) && !(data instanceof Blob)) ) {
+        console.error("Invalid data provided for download. Expected ArrayBuffer or Blob.");
+        return;
+    }
+    
     const url = window.URL.createObjectURL(new Blob([data], { type: "application/pdf" }));
     window.open(url, "_blank");
 };
