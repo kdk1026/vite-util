@@ -220,3 +220,20 @@ export const isEmptyObject = (param) => {
 export const isEmptyArray = (param) => {
     return Object.keys(param).length === 0 && param.constructor === Array;
 };
+
+/**
+ * URL 체크
+ * @param {string} val 
+ * @returns 
+ */
+export const isSafeUrl = (val) => {
+    try {
+        // 절대 URL 검사
+        const url = new URL(val);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch (e) {
+        console.error('Invalid URL:', e);
+        // 상대 경로 검사
+        return val === '/' || val.startsWith('/');
+    }
+};
