@@ -232,7 +232,7 @@ export const isSafeUrl = (val) => {
         const url = new URL(val);
         return url.protocol === 'http:' || url.protocol === 'https:';
     } catch (e) {
-        console.error('Invalid URL:', e);
+        console.error('Not an absolute URL, checking for relative path.', e);
         // 상대 경로 검사
         return val === '/' || val.startsWith('/');
     }
