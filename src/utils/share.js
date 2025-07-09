@@ -23,8 +23,8 @@ export const share = (title, text) => {
             }
         });
     } else {
-        alert('이 브라우저는 Web Share API를 지원하지 않습니다.\n클립보드에 복사합니다.');
-        // 클립보드 복사 수행
+        alert('이 브라우저는 Web Share API를 지원하지 않습니다.');
+        // 클립보드 복사 수행으로 대체 등 상황에 맞게 처리
     }
 };
 
