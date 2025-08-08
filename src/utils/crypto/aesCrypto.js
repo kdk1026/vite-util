@@ -6,7 +6,11 @@
 
 import CryptoJS from "crypto-js";
 
-const secretKey = import.meta.env.VITE_AES_SECRET_KEY;
+const rawKey = sessionStorage.getItem('dataKey');
+const secretKey = rawKey ? rawKey.substring(18) : null;
+
+const rawIv = sessionStorage.getItem('dataParam');
+const iv = rawIv ? rawIv.substring(18) : null;
 
 /**
  * AES 암호화
@@ -19,23 +23,23 @@ export const encrypt = (text) => {
         return { encryptedText: '', iv: '' };
     }
 
-    const iv = CryptoJS.lib.WordArray.random(16);
+    const ivParam = iv || CryptoJS.lib.WordArray.random(16);
 
     const cipher = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(secretKey), {
-        iv: iv,
+        iv: ivParam,
         padding: CryptoJS.pad.Pkcs7,
         mode: CryptoJS.mode.CBC,
     });
     return {
         encryptedText: cipher.toString(),
-        iv: iv.toString(CryptoJS.enc.Base64)
+        iv: ivParam.toString(CryptoJS.enc.Base64)
     }
 }
 
 /**
  * AES 복호화
  * @param {string} encryptedText 
- * @param {string} ivStringBase64
+ * @param {undefined|string} ivStringBase64
  * @returns 
  */
 export const decrypt = (encryptedText, ivStringBase64) => {
@@ -44,17 +48,23 @@ export const decrypt = (encryptedText, ivStringBase64) => {
         return '';
     }
 
-    if ( typeof ivStringBase64 !== 'string' || !ivStringBase64?.trim() ) {
-        console.error("IV는 유효한 Base64 문자열이어야 합니다.");
-        return '';
+    let ivParam;
+    if ( ivStringBase64 && typeof ivStringBase64 === 'string' ) {
+        ivParam = CryptoJS.enc.Base64.parse(ivStringBase64);
+    } else {
+        ivParam = iv;
     }
 
-    const iv = CryptoJS.enc.Base64.parse(ivStringBase64);
-
     const decipher = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(secretKey), {
-        iv: iv,
+        iv: ivParam,
         padding: CryptoJS.pad.Pkcs7,
         mode: CryptoJS.mode.CBC,
     })
-    return decipher.toString(CryptoJS.enc.Utf8);
+
+    try {
+        return decipher.toString(CryptoJS.enc.Utf8);
+    } catch (e) {
+        console.error("복호화에 실패했습니다.", e);
+        return '';
+    }
 }
