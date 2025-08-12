@@ -13,9 +13,9 @@ export const changeBrTag = (content) => {
     }
 
     /*
-        \r\n 윈도우
-        \r 구형 Mac (9버전 이하)
-        \n 유닉스, 리눅스, 최신 Mac
+        \r\n    윈도우
+        \r      구형 Mac (9버전 이하)
+        \n      유닉스, 리눅스, 최신 Mac
     */
     const safeContent = escapeHtml(content);
     return safeContent.replace(/(\r\n|\r|\n)/g, '<br />');
