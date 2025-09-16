@@ -4,7 +4,8 @@ import instance from "../utils/http";
 
 export const fetchImage1 = (mode, fileSeq) => {
     return instance.get(`/test/get-image?mode=${mode}&fileSeq=${fileSeq}`, {
-        responseType: 'blob'
+        responseType: 'blob',
+        timeout: 120000
     });
 };
 
@@ -14,6 +15,7 @@ export const fetchImage2 = (mode, fileSeq) => {
             mode,
             fileSeq
         },
-        responseType: 'blob'
+        responseType: 'blob',
+        timeout: 120000
     });
 };
