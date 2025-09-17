@@ -41,7 +41,7 @@ export const getLocaleStorage = (localeCode, defaultString) => {
  * 리액트 Redux에서 로케일 데이터 가져오기
  * @param {null|blank||string} localeCode 
  * @param {string} defaultString 
- * @param {*} reduxData 
+ * @param {Array} reduxData 
  * @returns 
  */
 export const getLocaleRedux = (localeCode, defaultString, reduxData) => {
