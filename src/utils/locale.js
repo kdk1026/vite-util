@@ -21,6 +21,9 @@ export const getLocaleStorage = (localeCode, defaultString) => {
         }
 
         const localeData = JSON.parse(storageLocaleData);
+        if ( !localeData ) {
+            return defaultString;
+        }
 
         const filteredData = localeData.filter((item) => item.chrctrCode === localeCode);
         if ( filteredData.length === 0 ) {
