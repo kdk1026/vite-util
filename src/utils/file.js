@@ -24,12 +24,12 @@ export const download = (data, fileName) => {
         return;
     }
 
-    const blob = new Blob([new Uint8Array(data)], { type: 'application/octet-stream' });
+    const blob = new Blob([data], { type: 'application/octet-stream' });
     const url = window.URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.setAttribute("download", fileName);
+    a.setAttribute("download", decodeURIComponent(fileName));
     document.body.appendChild(a);
     a.click();
 
