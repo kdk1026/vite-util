@@ -42,22 +42,22 @@ export const getLocaleStorage = (localeCode, defaultString) => {
 };
 
 /**
- * 리액트 Redux에서 로케일 데이터 가져오기
+ * 로케일 데이터 가져오기
  * @param {null|blank||string} localeCode 
  * @param {string} defaultString 
- * @param {Array} reduxData 
+ * @param {Array} localeDataArray 
  * @returns 
  */
-export const getLocaleRedux = (localeCode, defaultString, reduxData) => {
-    if ( !localeCode || !reduxData ) {
+export const getLocaleRedux = (localeCode, defaultString, localeDataArray) => {
+    if ( !localeCode || !localeDataArray ) {
         return defaultString;
     }
 
-    if ( !Array.isArray(reduxData) ) {
+    if ( !Array.isArray(localeDataArray) ) {
         return defaultString;
     }
 
-    const filteredData = reduxData.filter((item) => item.chrctrCode === localeCode);
+    const filteredData = localeDataArray.filter((item) => item.chrctrCode === localeCode);
     if ( filteredData.length === 0 ) {
         return defaultString;
     }
