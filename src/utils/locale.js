@@ -25,6 +25,10 @@ export const getLocaleStorage = (localeCode, defaultString) => {
             return defaultString;
         }
 
+        if ( !Array.isArray(localeData) ) {
+            return defaultString;
+        }
+
         const filteredData = localeData.filter((item) => item.chrctrCode === localeCode);
         if ( filteredData.length === 0 ) {
             return defaultString;
@@ -46,6 +50,10 @@ export const getLocaleStorage = (localeCode, defaultString) => {
  */
 export const getLocaleRedux = (localeCode, defaultString, reduxData) => {
     if ( !localeCode || !reduxData ) {
+        return defaultString;
+    }
+
+    if ( !Array.isArray(reduxData) ) {
         return defaultString;
     }
 
