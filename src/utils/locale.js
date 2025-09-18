@@ -2,7 +2,7 @@ import { decode } from "html-entities";
 import DOMPurify from 'dompurify';
 
 /**
- * 세션 스토리지에서 로케일 데이터 가져오기
+ * 세션 스토리지 로케일 데이터에서 로케일 값 가져오기
  * @param {null|blank||string} localeCode 
  * @param {string} defaultString 
  * @returns 
@@ -42,22 +42,22 @@ export const getLocaleStorage = (localeCode, defaultString) => {
 };
 
 /**
- * 로케일 데이터 가져오기
+ * 로케일 데이터에서 로케일 값 가져오기
  * @param {null|blank||string} localeCode 
  * @param {string} defaultString 
- * @param {Array} localeDataArray 
+ * @param {Array} localeData 
  * @returns 
  */
-export const getLocaleRedux = (localeCode, defaultString, localeDataArray) => {
-    if ( !localeCode || !localeDataArray ) {
+export const getLocaleRedux = (localeCode, defaultString, localeData) => {
+    if ( !localeCode || !localeData ) {
         return defaultString;
     }
 
-    if ( !Array.isArray(localeDataArray) ) {
+    if ( !Array.isArray(localeData) ) {
         return defaultString;
     }
 
-    const filteredData = localeDataArray.filter((item) => item.chrctrCode === localeCode);
+    const filteredData = localeData.filter((item) => item.chrctrCode === localeCode);
     if ( filteredData.length === 0 ) {
         return defaultString;
     }

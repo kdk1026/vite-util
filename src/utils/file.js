@@ -24,12 +24,14 @@ export const download = (data, fileName) => {
         return;
     }
 
+    const decodeFileName = decodeURIComponent(fileName).replace(/\+/g, ' ');
+
     const blob = new Blob([data], { type: 'application/octet-stream' });
     const url = window.URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.setAttribute("download", decodeURIComponent(fileName));
+    a.setAttribute("download", decodeFileName);
     document.body.appendChild(a);
     a.click();
 
