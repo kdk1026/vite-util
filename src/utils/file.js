@@ -83,7 +83,7 @@ export const getFileName = (response, defaultFileName) => {
 		}
     }
 
-    return fileName;
+    return decodeURIComponent(fileName).replace(/\+/g, ' ');
 };
 
 /**
