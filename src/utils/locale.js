@@ -1,3 +1,9 @@
+/**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.09.18
+ * @version 1.0
+ */
+
 import { decode } from "html-entities";
 import DOMPurify from 'dompurify';
 

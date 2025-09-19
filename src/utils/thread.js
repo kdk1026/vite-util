@@ -1,4 +1,11 @@
 /**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.08.15
+ * @version 1.0
+ */
+
+
+/**
  * 지연 시키기
  * @param {number} sec 
  * @returns 

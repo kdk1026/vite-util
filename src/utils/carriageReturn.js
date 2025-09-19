@@ -1,3 +1,9 @@
+/**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.08.15
+ * @version 1.0
+ */
+
 const escapeHtml = (unsafe) => {
     return unsafe
         .replace(/&/g, "&amp;")

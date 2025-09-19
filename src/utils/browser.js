@@ -1,4 +1,10 @@
 /**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.06.09
+ * @version 1.0
+ */
+
+/**
  * UserAgent에서 브라우저 식별
  * @returns 
  */
