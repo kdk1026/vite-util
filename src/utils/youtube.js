@@ -17,7 +17,7 @@ export const extractYouTubeId = (url) => {
 };
 
 /**
- * 유튜브 공유 URL을 Embed URL로 변환
+ * 유튜브 URL을 iframe으로 재생 가능한 Embed URL로 변환
  * @param {string} shareUrl 
  * @returns 
  */
