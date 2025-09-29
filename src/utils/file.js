@@ -134,6 +134,29 @@ export const checkFileSize = (fileObj, maxFileSize) => {
 };
 
 /**
+ * 파일 ByteArray를 Base64 데이터로 변환
+ * @param {Uint8Array|ArrayBuffer} byteArray - Java에서 전달된 ByteArray에 해당하는 Typed Array 데이터
+ * @param {string} fileName
+ * @returns {Promise<string>} 'data:...' 접두사가 제거된 순수한 Base64 데이터 문자열을 resolve하는 Promise.
+ */
+export const byteArrayToBase64 = (byteArray, fileName) => {
+	const file = new File([byteArray], fileName, { type: byteArray.type });
+
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            console.log('reader.result:', reader.result);
+            resolve(reader.result.split(',')[1]);
+        };
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+    });
+};
+
+/**
  * PDF 새 탭으로 열기
  * @param {ArrayBuffer|Blob} data 
  */
