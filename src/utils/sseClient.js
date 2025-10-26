@@ -12,8 +12,7 @@
  *  console.log('notification received:', data);
  * });
  */
-// eslint-disable-next-line no-unused-vars
-class SSEClient {
+export class SSEClient {
   constructor(url) {
     this.url = url;
     this.eventSource = null;
