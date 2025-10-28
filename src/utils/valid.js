@@ -223,7 +223,7 @@ export const Type = {
     },
 
     /**
-     * 한글이 전혀 포함되어 있지 않은지 체크
+     * 한글을 제외한 문자로만 이루어져 있는지 체크
      * @param {string} val 
      * @returns 
      */
