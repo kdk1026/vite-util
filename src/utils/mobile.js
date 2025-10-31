@@ -29,7 +29,7 @@ export const isUserAgentMobile = () => {
     
     return (
         /android/i.test(userAgent) ||
-        (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) ||
+        /iPad|iPhone|iPod/.test(userAgent) ||
         /blackberry|bb10|playbook/i.test(userAgent) ||
         /windows phone/i.test(userAgent) ||
         /webos|touchpad|hpwos/i.test(userAgent)
