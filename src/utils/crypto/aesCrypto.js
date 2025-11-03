@@ -39,18 +39,19 @@ export const encrypt = (text) => {
 /**
  * AES 복호화
  * @param {string} encryptedText 
- * @param {undefined|string} ivStringBase64
+ * @param {null|string} ivStr
+ * @param {boolean} isBase64Iv
  * @returns 
  */
-export const decrypt = (encryptedText, ivStringBase64) => {
+export const decrypt = (encryptedText, ivStr, isBase64Iv) => {
     if ( typeof encryptedText !== 'string' || !encryptedText?.trim() ) {
         console.error("복호화할 암호문은 유효한 문자열이어야 합니다.");
         return '';
     }
 
     let ivParam;
-    if ( ivStringBase64 && typeof ivStringBase64 === 'string' ) {
-        ivParam = CryptoJS.enc.Base64.parse(ivStringBase64);
+    if ( ivStr && typeof ivStr === 'string' && ivStr.trim() && isBase64Iv ) {
+        ivParam = CryptoJS.enc.Base64.parse(ivStr);
     } else {
         ivParam = iv;
     }
