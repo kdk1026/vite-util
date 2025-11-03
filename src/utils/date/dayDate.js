@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.05.30
- * @version 1.0
+ * @version 1.1
  * @description Moment.js와 거의 동일한 API를 사용하는 Day.js 사용
  * @description
     Moment.js와 달리 변경이 불가능(immutable)하기 때문에
@@ -45,7 +45,7 @@ const Today = {
      * @param {string} dateFromat 
      * @returns 
      */
-    getTodayStringFormat : function(dateFromat) {
+    getTodayStringFormatted : function(dateFromat) {
         return dayjs().format(dateFromat);
     },
     /**
@@ -146,7 +146,7 @@ const Convert = {
      * @param {string} dateFormat 
      * @returns 
      */
-    getDateToStringFormat : function(date, dateFormat) {
+    getDateToFormattedString : function(date, dateFormat) {
         return dayjs(date).format(dateFormat);
     }
 };
@@ -173,7 +173,7 @@ const CalcDate = {
      * @param {number} days 
      * @returns 
      */
-    plusMinusDayString : function(strDate, days) {
+    plusMinusDayFrom : function(strDate, days) {
         return dayjs(strDate, ["YYYYMMDD"], true).add(days, 'days').format(FORMAT.YYYYMMDD);
     },
     /**
@@ -194,7 +194,7 @@ const CalcDate = {
      * @param {string} dateForamt 
      * @returns 
      */
-    plusMinusMonthFormat : function(months, dateForamt) {
+    plusMinusMonthFormatted : function(months, dateForamt) {
         return dayjs().add(months, 'months').format(dateForamt);
     },
     /**
@@ -217,7 +217,7 @@ const CalcDate = {
      * @param {string} dateForamt 
      * @returns 
      */
-    plusMinusMonthStringFormat : function(strDate, months, dateForamt) {
+    plusMinusMonthFromFormatted : function(strDate, months, dateForamt) {
         return dayjs(strDate, [dateForamt], true).add(months, 'months').format(dateForamt);
     },
     /**
@@ -238,7 +238,7 @@ const CalcDate = {
      * @param {string} dateForamt 
      * @returns 
      */
-    plusMinusYearFormat : function(years, dateForamt) {
+    plusMinusYearFormatted : function(years, dateForamt) {
         return dayjs().add(years, 'years').format(dateForamt);
     },
     /**
@@ -249,7 +249,7 @@ const CalcDate = {
      * @param {number} years 
      * @returns 
      */
-    plusMinusYearString : function(strDate, years) {
+    plusMinusYearFrom : function(strDate, years) {
         return dayjs(strDate, ["YYYYMMDD"], true).add(years, 'years').format(FORMAT.YYYYMMDD);
     },
     /**
@@ -261,7 +261,7 @@ const CalcDate = {
      * @param {string} dateForamt 
      * @returns 
      */
-    plusMinusYearStringFormat : function(strDate, years, dateForamt) {
+    plusMinusYearFromFormatted : function(strDate, years, dateForamt) {
         return dayjs(strDate, [dateForamt], true).add(years, 'years').format(dateForamt);
     }
 };
@@ -288,7 +288,7 @@ const CalcTime = {
      * @param {number} hours 
      * @returns 
      */
-    plusMinusHourString : function(strDate, hours) {
+    plusMinusHourFrom : function(strDate, hours) {
         return dayjs(strDate, ["YYYYMMDDHHmmss"], true).add(hours, 'hours').format(FORMAT.YYYYMMDDHHMMSS);
     },
     /**
@@ -309,7 +309,7 @@ const CalcTime = {
      * @param {number} hours 
      * @returns 
      */
-    plusMinusMinuteString : function(strDate, minutes) {
+    plusMinusMinuteFrom : function(strDate, minutes) {
         return dayjs(strDate, ["YYYYMMDDHHmmss"], true).add(minutes, 'minutes').format(FORMAT.YYYYMMDDHHMMSS);
     },
     /**
@@ -423,14 +423,14 @@ const GetDayOfWeek = {
      * @param {string} strDate 
      * @returns 
      */
-    getDayOfWeekString : function(strDate) {
+    getDayOfWeekFromDate : function(strDate) {
         return dayjs(strDate, ["YYYYMMDD"], true).day();
     },
     /**
      * 현재 날짜의 1일의 요일 반환
      * @returns 
      */
-    getFirstDayOfWeek : function() {
+    getWeekStartDay : function() {
         return dayjs().date(1).day();
     },
     /**
@@ -438,7 +438,7 @@ const GetDayOfWeek = {
      * @param {string} strDate 
      * @returns 
      */
-    getFirstDayOfWeekString : function(strDate) {
+    getWeekStartDayFromDate : function(strDate) {
         return dayjs(strDate, ["YYYYMMDD"], true).date(1).day();
     },
     /**
@@ -447,7 +447,7 @@ const GetDayOfWeek = {
      * @param {string} locale 
      * @returns 
      */
-    getDayOfWeekLocale : function(locale) {
+    getTodayDayOfWeekLocale : function(locale) {
         return dayjs().locale(locale).format('dd');
     },
     /**
@@ -456,7 +456,7 @@ const GetDayOfWeek = {
      * @param {string} locale 
      * @returns 
      */
-    getDayOfWeekLocaleString : function(strDate, locale) {
+    getDayOfWeekFromDateLocale : function(strDate, locale) {
         return dayjs(strDate, ["YYYYMMDD"], true).locale(locale).format('dd');
     }
 };
@@ -469,13 +469,13 @@ const GetDayOfMonth = {
      * 현재 날짜의 마지막 일자를 반환
      * @returns 
      */
-    getLastDayOfMonth : function() {
+    getEndOfCurrentMonth : function() {
         return dayjs().daysInMonth();
     },
     /**
      * 현재 날짜의 마지막 일자를 yyyyMMdd 형식으로 반환
      */
-    getLastDayOfMonthString: function() {
+    getEndOfCurrentMonthString: function() {
         return dayjs().endOf('month').format('YYYYMMDD');
     },
     /**
@@ -484,7 +484,7 @@ const GetDayOfMonth = {
      * @param {string} strDate 
      * @returns 
      */
-    getLastDayOfMonthForDate : function(strDate) {
+    getEndOfMonthFromDate : function(strDate) {
         return dayjs(strDate, ["YYYYMMDD"], true).daysInMonth();
     },
     /**
@@ -493,7 +493,7 @@ const GetDayOfMonth = {
      * @param {string} strDate 
      * @returns 
      */
-    getLastDayOfMonthStringForDate: function(strDate) {
+    getEndOfMonthStringFromDate: function(strDate) {
         const daysInMonth = dayjs(strDate, ["YYYYMMDD"], true).daysInMonth();
         const lastDay = dayjs(strDate, ["YYYYMMDD"], true).date(daysInMonth);
         return lastDay.format('YYYYMMDD');
