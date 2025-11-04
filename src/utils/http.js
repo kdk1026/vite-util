@@ -1,12 +1,11 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.0
+ * @version 1.1
  */
 
 import axios from "axios";
-import { getToken, isTokenExpired } from "./token";
-import { refreshToken } from "../apis/authApi";
+import { getToken, setToken } from "./token";
 
 const setApiUrl = () => {
     const profile = import.meta.env.VITE_PROFILE;
@@ -49,27 +48,17 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
     (response) => {
+        const headers = response.headers;
+
+        const accessToken = headers['accessToken'];
+        if ( accessToken ) {
+            setToken(accessToken);
+        }
+
         return response;
     },
     async (error) => {
-        
-        if ( error.response?.status === 401 ) {
-            if ( isTokenExpired() ) {
-                await refreshToken();
-            }
-
-            const accessToken = getToken();
-
-            error.config.headers = {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${accessToken}`
-			};
-
-            const response = await axios.request(error.config);
-			return response;
-        } else {
-            onErrorCase(error);
-        }
+        onErrorCase(error);
 
         return Promise.reject(error);
     }
