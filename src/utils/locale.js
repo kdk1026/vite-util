@@ -14,7 +14,7 @@ import DOMPurify from 'dompurify';
  * @returns 
  */
 export const getLocaleStorage = (localeCode, defaultString) => {
-    const LOCALE_DATA_STORAGE_KEY = import.meta.env.LOCALE_DATA_STORAGE_KEY;
+    const LOCALE_DATA_STORAGE_KEY = import.meta.env.VITE_LOCALE_DATA_STORAGE_KEY;
 
     if ( !localeCode ) {
         return defaultString;
