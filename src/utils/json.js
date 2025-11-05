@@ -24,7 +24,7 @@ export const jsonToObject = (jsonStr) => {
 
 /**
  * Object를 JSON String으로 변환
- * @param {Object} obj 
+ * @param {object} obj 
  * @returns 
  */
 export const objectToJsonString = (obj) => {
@@ -42,7 +42,7 @@ export const objectToJsonString = (obj) => {
 
 /**
  * Object를 Tree 구조의 JSON String으로 변환
- * @param {Object} obj 
+ * @param {object} obj 
  * @returns 
  */
 export const objectToJsonStringPretty = (obj) => {

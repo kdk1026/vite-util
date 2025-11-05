@@ -43,7 +43,7 @@ export const download = (data, fileName) => {
 
 /**
  * 파일 확장자 추출
- * @param {Object} fileObj 
+ * @param {object} fileObj 
  * @returns 
  */
 export const getFileExt = (fileObj) => {
@@ -115,7 +115,7 @@ export const MAX_FILE_SIZE = 20 * 1024 * 1024;
 
 /**
  * 파일 용량 체크
- * @param {Object} fileObj 
+ * @param {object} fileObj 
  * @param {(undefined|null|number)} maxFileSize 
  * @returns 
  */

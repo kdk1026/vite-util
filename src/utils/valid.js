@@ -58,7 +58,7 @@ export const isLengthOver = (val, minLen, maxLen) => {
 
 /**
  * Object가 비어있는지 체크
- * @param {Object} param 
+ * @param {object} param 
  * @returns 
  */
 export const isEmptyObject = (param) => {
