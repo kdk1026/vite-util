@@ -6,11 +6,11 @@
 
 import CryptoJS from "crypto-js";
 
-const rawKey = sessionStorage.getItem('dataKey');
-const secretKey = rawKey ? rawKey.substring(18) : null;
+const rawKey = sessionStorage.getItem('primaryData');
+const secretKey = rawKey ? atob(rawKey) : null;
 
-const rawIv = sessionStorage.getItem('dataParam');
-const iv = rawIv ? rawIv.substring(18) : null;
+const rawIv = sessionStorage.getItem('secondaryData');
+const iv = rawIv ? atob(rawIv) : null;
 
 /**
  * AES 암호화
@@ -23,9 +23,9 @@ export const encrypt = (text) => {
         return { encryptedText: '', iv: '' };
     }
 
-    const ivParam = iv || CryptoJS.lib.WordArray.random(16);
+    const ivParam = iv.substring(34, 50) || CryptoJS.lib.WordArray.random(16);
 
-    const cipher = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(secretKey), {
+    const cipher = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(secretKey.substring(18, 50)), {
         iv: ivParam,
         padding: CryptoJS.pad.Pkcs7,
         mode: CryptoJS.mode.CBC,
@@ -53,10 +53,10 @@ export const decrypt = (encryptedText, ivStr, isBase64Iv) => {
     if ( ivStr && typeof ivStr === 'string' && ivStr.trim() && isBase64Iv ) {
         ivParam = CryptoJS.enc.Base64.parse(ivStr);
     } else {
-        ivParam = iv;
+        ivParam = iv.substring(34, 50);
     }
 
-    const decipher = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(secretKey), {
+    const decipher = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(secretKey.substring(18, 50)), {
         iv: ivParam,
         padding: CryptoJS.pad.Pkcs7,
         mode: CryptoJS.mode.CBC,
