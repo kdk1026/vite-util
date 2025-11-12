@@ -23,9 +23,10 @@ export const encrypt = (text) => {
         return { encryptedText: '', iv: '' };
     }
 
-    const ivParam = iv.substring(34, 50) || CryptoJS.lib.WordArray.random(16);
+    const ivParam = `${iv.substring(34, 42)}${import.meta.env.VITE_AES_IV_SUFFIX}` || CryptoJS.lib.WordArray.random(16);
+    const keyParam = `${secretKey.substring(18, 34)}${import.meta.env.VITE_AES_KEY_SUFFIX}`;
 
-    const cipher = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(secretKey.substring(18, 50)), {
+    const cipher = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(keyParam), {
         iv: ivParam,
         padding: CryptoJS.pad.Pkcs7,
         mode: CryptoJS.mode.CBC,
@@ -53,10 +54,12 @@ export const decrypt = (encryptedText, ivStr, isBase64Iv) => {
     if ( ivStr && typeof ivStr === 'string' && ivStr.trim() && isBase64Iv ) {
         ivParam = CryptoJS.enc.Base64.parse(ivStr);
     } else {
-        ivParam = iv.substring(34, 50);
+        ivParam = `${iv.substring(34, 42)}${import.meta.env.VITE_AES_IV_SUFFIX}` || CryptoJS.lib.WordArray.random(16);
     }
 
-    const decipher = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(secretKey.substring(18, 50)), {
+    const keyParam = `${secretKey.substring(18, 34)}${import.meta.env.VITE_AES_KEY_SUFFIX}`;
+
+    const decipher = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(keyParam), {
         iv: ivParam,
         padding: CryptoJS.pad.Pkcs7,
         mode: CryptoJS.mode.CBC,
