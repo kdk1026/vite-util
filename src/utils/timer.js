@@ -21,6 +21,26 @@
  * @param {function } onEnd 
  */
 export const timer = (totalSeconds, lang, onTick, onEnd) => {
+    if ( typeof totalSeconds !== 'number' ) {
+        console.error("totalSeconds is not number");
+        return;
+    }
+
+    if ( typeof lang !== 'string' ) {
+        console.error("lang is not string");
+        return;
+    }
+
+    if ( typeof onTick !== 'function' ) {
+        console.error("onTick is not function");
+        return;
+    }
+
+    if ( typeof onEnd !== 'function' ) {
+        console.error("onEnd is not function");
+        return;
+    }
+
     const localeLabels = {
         ko: { min: '분', sec: '초' },
         en: { min: 'min', sec: 'sec' },
