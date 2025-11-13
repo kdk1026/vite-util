@@ -6,6 +6,7 @@
 
 import axios from "axios";
 import { getToken, setToken } from "./token";
+import { getCookie } from "./cookie";
 
 const setApiUrl = () => {
     const profile = import.meta.env.VITE_PROFILE;
@@ -33,9 +34,14 @@ const instance = axios.create({
 instance.interceptors.request.use(
     (config) => {
         const accessToken = getToken();
-
         if ( accessToken ) {
             config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+
+        // 메인에서 CSRF 토큰 생성 API를 요청
+        const csrfToken = getCookie('csrfToken');
+        if ( csrfToken ) {
+            config.headers['X-CSRF-TOKEN'] = csrfToken;
         }
 
         return config;
