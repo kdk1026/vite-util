@@ -39,7 +39,7 @@ instance.interceptors.request.use(
         }
 
         // 메인에서 CSRF 토큰 생성 API를 요청
-        const csrfToken = getCookie('csrfToken');
+        const csrfToken = getCookie('XSRF-TOKEN');
         if ( csrfToken ) {
             config.headers['X-CSRF-TOKEN'] = csrfToken;
         }
