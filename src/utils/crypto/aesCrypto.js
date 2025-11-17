@@ -33,7 +33,7 @@ export const encrypt = (text) => {
     });
     return {
         encryptedText: cipher.toString(),
-        iv: ivParam.toString(CryptoJS.enc.Base64)
+        iv: CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(ivParam))
     }
 }
 
@@ -53,7 +53,7 @@ export const decrypt = (encryptedText, ivStr, isBase64Iv) => {
     const keyParam = `${secretKey.substring(18, 34)}${atob(import.meta.env.VITE_AES_KEY_HALF)}`;
     let ivParam;
     if ( ivStr && typeof ivStr === 'string' && ivStr.trim() && isBase64Iv ) {
-        ivParam = CryptoJS.enc.Base64.parse(ivStr);
+        ivParam = CryptoJS.enc.Base64.parse(ivStr).toString(CryptoJS.enc.Utf8);
     } else {
         ivParam = `${iv.substring(34, 42)}${atob(import.meta.env.VITE_AES_IV_HALF)}` || CryptoJS.lib.WordArray.random(16);
     }
