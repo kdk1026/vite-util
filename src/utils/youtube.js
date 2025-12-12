@@ -12,7 +12,7 @@
 export const extractYouTubeId = (url) => {
     const regex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|v\/|shorts\/))([\w-]{11})/;
 
-    const match = RegExp(regex).exec(url);
+    const match = new RegExp(regex).exec(url);
     return match ? match[1] : null;
 };
 

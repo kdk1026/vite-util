@@ -24,5 +24,5 @@ export const changeBrTag = (content) => {
         \n      유닉스, 리눅스, 최신 Mac
     */
     const safeContent = escapeHtml(content);
-    return safeContent.replace(/(\r\n|\r|\n)/g, '<br />');
+    return safeContent.replaceAll(/(\r\n|\r|\n)/g, '<br />');
 };

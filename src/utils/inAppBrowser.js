@@ -47,11 +47,9 @@ export const Kakaotalk = {
             }
 
             window.location.href = `kakaotalk://web/openExternal?url=${encodeURIComponent(linkUrl)}`;
-        } else {
-            if ( !isLoad ) {
+        } else if ( !isLoad ) {
                 window.location.href = targetUrl;
             }
-        }
     },
 
     /**
@@ -160,11 +158,9 @@ export const Line = {
             }
 
             window.location.href = linkUrl;
-        }  else {
-            if ( !isLoad ) {
+        }  else if ( !isLoad ) {
                 window.location.href = targetUrl;
             }
-        }
     },
 
     /**
@@ -251,7 +247,7 @@ export const Telegram = {
      */
     isTelegramInAppBrowser : () => {
         const userAgent = navigator.userAgent.toLowerCase();
-        return userAgent.includes('telgram') || typeof window.TelegramWebviewProxy !== 'undefined' || typeof window.TelegramWebview !== 'undefined';
+        return userAgent.includes('telgram') || window.TelegramWebviewProxy === undefined || window.TelegramWebview === undefined;
     },
 
     /**
@@ -274,10 +270,8 @@ export const Telegram = {
         if ( Telegram.isTelegramInAppBrowser() ) {
             // 외부 브라우저로 열기 제공 안함, 앱 설정으로 가능
             alert('설정 > 데이터 및 저장공간 > 기타에서 "링크 열기"를 선택해 원하는 브라우저를 지정해 주세요.');
-        }  else {
-            if ( !isLoad ) {
+        }  else if ( !isLoad ) {
                 window.location.href = targetUrl;
             }
-        }
     },
 };

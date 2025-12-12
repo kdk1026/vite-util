@@ -1,4 +1,10 @@
 /**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.12.09
+ * @version 1.0
+ */
+
+/**
  * 두 버전 문자열을 비교
  * @param {string} currentVersion - 비교 대상 현재 버전 (예: "1.2.3")
  * @param {string} minimumVersion - 비교 기준 최소 버전 (예: "1.2.0")
@@ -9,6 +15,16 @@
  * 0: currentVersion = minimumVersion (같음)
  */
 export const compareVersion = (currentVersion, minimumVersion) => {
+    if ( typeof currentVersion !== 'string' || !currentVersion.trim() ) {
+        console.error('currentVersion is empty or null.');
+        return;
+    }
+
+    if ( typeof minimumVersion !== 'string' || !minimumVersion.trim() ) {
+        console.error('minimumVersion is empty or null.');
+        return;
+    }
+
     const a = currentVersion.split('.').map(Number);
     const b = minimumVersion.split('.').map(Number);
 

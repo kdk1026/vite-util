@@ -15,7 +15,7 @@ export const formatPhoneNumber = (value) => {
         return null;
     }
 
-    const phoneNumber = value.replace(/[^\d]/g, '');
+    const phoneNumber = value.replaceAll(/[^\d]/g, '');
     const phoneNumberLength = phoneNumber.length;
     if (phoneNumberLength < 4) return phoneNumber;
     if (phoneNumberLength < 8) {
@@ -35,7 +35,7 @@ export const formatGeneralPhoneNumber = (value) => {
         return null;
     }   
 
-    const phoneNumber = value.replace(/[^\d]/g, '');
+    const phoneNumber = value.replaceAll(/[^\d]/g, '');
     const phoneNumberLength = phoneNumber.length;
 
     if (phoneNumber.startsWith('02')) {
@@ -84,7 +84,7 @@ export const formatNumber = (value) => {
         return null;
     }
 
-    return value.replace(/[^\d]/g, '');
+    return value.replaceAll(/[^\d]/g, '');
 }
 
 /**
@@ -98,5 +98,5 @@ export const formatNumberComma = (num) => {
         return null;
     }
 
-    return Number(num.replace(/,/g, '')).toLocaleString();
+    return Number(num.replaceAll(',', '')).toLocaleString();
 }

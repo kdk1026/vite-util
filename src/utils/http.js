@@ -13,10 +13,10 @@ const setApiUrl = () => {
     
     if ( profile === 'local' ) {
         const hostname = window.location.hostname;
-        if ( hostname !== 'localhost' ) {
-            return (import.meta.env.VITE_API_URL).replace('localhost', hostname);
-        } else {
+        if ( hostname === 'localhost' ) {
             return import.meta.env.VITE_API_URL;    
+        } else {
+            return (import.meta.env.VITE_API_URL).replace('localhost', hostname);
         }
     } else {
         return import.meta.env.VITE_API_URL;
@@ -66,7 +66,7 @@ instance.interceptors.response.use(
     async (error) => {
         onErrorCase(error);
 
-        return Promise.reject(error);
+        throw error;
     }
 );
 

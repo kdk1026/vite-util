@@ -41,9 +41,9 @@ export const encodeUnicodeBase64 = (str) => {
     }
 
     // 유니코드를 UTF-8 URL 인코딩 (퍼센트 인코딩) -> 이스케이프 시퀀스 -> 이진 문자열 -> Base64
-    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+    return btoa(encodeURIComponent(str).replaceAll(/%([0-9A-F]{2})/g,
         function toSolidBytes(p1) {
-            return String.fromCharCode('0x' + p1);
+            return String.fromCodePoint('0x' + p1);
         }));
 };
 
@@ -58,7 +58,7 @@ export const decodeUnicodeBase64 = (str) => {
 
     // Base64 -> 이진 문자열 -> 이스케이프 시퀀스 -> UTF-8 URL 디코딩 -> 유니코드
     return decodeURIComponent(atob(str).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        return '%' + ('00' + c.codePointAt(0).toString(16)).slice(-2);
     }).join(''));
 };
 
