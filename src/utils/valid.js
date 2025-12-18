@@ -62,7 +62,7 @@ export const isLengthOver = (val, minLen, maxLen) => {
  * @returns 
  */
 export const isEmptyObject = (param) => {
-    return Object.keys(param).length === 0 && param.constructor === Object;
+    return param && typeof param === 'object' && !Array.isArray(param) && Object.keys(param).length === 0;
 };
 
 /**
@@ -71,7 +71,7 @@ export const isEmptyObject = (param) => {
  * @returns 
  */
 export const isEmptyArray = (param) => {
-    return Object.keys(param).length === 0 && param.constructor === Array;
+    return Array.isArray(param) && param.length === 0;
 };
 
 /**
