@@ -67,7 +67,7 @@ export const isEmptyObject = (param) => {
 
 /**
  * Array가 비어있는지 체크
- * @param {any[]} param 
+ * @param {Array<*>} param 
  * @returns 
  */
 export const isEmptyArray = (param) => {

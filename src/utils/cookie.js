@@ -155,7 +155,7 @@ export const setCookieObject = (name, value, days, profile, path, domain) => {
 /**
  * Array 쿠키 생성
  * @param {string} name 
- * @param {any[]} value 
+ * @param {Array<*>} value 
  * @param {number} days 
  * @param {string} profile 
  * @param {undefined|null|string} path 
