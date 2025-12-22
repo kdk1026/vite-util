@@ -51,7 +51,7 @@ export const getLocaleStorage = (localeCode, defaultString) => {
  * 로케일 데이터에서 로케일 값 가져오기
  * @param {null|blank||string} localeCode 
  * @param {string} defaultString 
- * @param {Array} localeData 
+ * @param {Object[]} localeData 
  * @returns 
  */
 export const getLocaleRedux = (localeCode, defaultString, localeData) => {
