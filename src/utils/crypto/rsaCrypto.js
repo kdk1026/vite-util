@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.03.02
- * @version 1.0
+ * @version 1.1
  * @description Front 에서는 암호화만 해서 전송만 한다.
  */
 
@@ -23,5 +23,5 @@ export const rsaEncrypt = (text) => {
     }
 
     crypt.setPublicKey(base64PublicKey);
-    return crypt.encrypt(text);
+    return crypt.encrypt(text) || '';
 };

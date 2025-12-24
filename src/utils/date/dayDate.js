@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.05.30
- * @version 1.1
+ * @version 1.2
  * @description Moment.js와 거의 동일한 API를 사용하는 Day.js 사용
  * @description
     Moment.js와 달리 변경이 불가능(immutable)하기 때문에
@@ -23,6 +23,15 @@
  */
 
 import dayjs from "dayjs";
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import duration from 'dayjs/plugin/duration';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
+dayjs.extend(customParseFormat);
+dayjs.extend(duration);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 const FORMAT = {
     YYYYMMDD : 'YYYYMMDD',
@@ -103,7 +112,7 @@ const StringFormat = {
      * @returns 
      */
     getStringDate : function(strDate, dateFormat) {
-        return dayjs(strDate, ["YYYYMMDD"], true).format(dateFormat);
+        return dayjs(strDate, "YYYYMMDD", true).format(dateFormat);
     },
     /**
      * yyyyMMddHHmmss 형식의 String 타입을 해당 포맷의 String 타입으로 반환
@@ -112,7 +121,7 @@ const StringFormat = {
      * @returns 
      */
     getStringDateTime : function(strDate, dateFormat) {
-        return dayjs(strDate, ["YYYYMMDDHHmmss"], true).format(dateFormat);
+        return dayjs(strDate, "YYYYMMDDHHmmss", true).format(dateFormat);
     }
 };
 
@@ -127,9 +136,9 @@ const Convert = {
      */
     getStringToDate : function(strDate) {
         if (strDate.length === 14) {
-            return dayjs(strDate, ["YYYYMMDDHHmmss"], true).toDate();
+            return dayjs(strDate, "YYYYMMDDHHmmss", true).toDate();
         } else {
-            return dayjs(strDate, ["YYYYMMDD"], true).toDate();
+            return dayjs(strDate, "YYYYMMDD", true).toDate();
         }
     },
     /**
@@ -174,7 +183,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusDayFrom : function(strDate, days) {
-        return dayjs(strDate, ["YYYYMMDD"], true).add(days, 'days').format(FORMAT.YYYYMMDD);
+        return dayjs(strDate, "YYYYMMDD", true).add(days, 'days').format(FORMAT.YYYYMMDD);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 yyyyMMdd 형식의 String 타입으로 반환
@@ -206,7 +215,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusMonthString : function(strDate, months) {
-        return dayjs(strDate, ["YYYYMMDD"], true).add(months, 'months').format(FORMAT.YYYYMMDD);
+        return dayjs(strDate, "YYYYMMDD", true).add(months, 'months').format(FORMAT.YYYYMMDD);
     },
     /**
      * 해당 포맷 형식의 String 타입 날짜의 이전/이후 날짜를 해당 포맷 형식의 String 타입으로 반환
@@ -250,7 +259,7 @@ const CalcDate = {
      * @returns 
      */
     plusMinusYearFrom : function(strDate, years) {
-        return dayjs(strDate, ["YYYYMMDD"], true).add(years, 'years').format(FORMAT.YYYYMMDD);
+        return dayjs(strDate, "YYYYMMDD", true).add(years, 'years').format(FORMAT.YYYYMMDD);
     },
     /**
      * 해당 포맷 형식의 String 타입 날짜의 이전/이후 날짜를 해당 포맷 형식의 String 타입으로 반환
@@ -289,7 +298,7 @@ const CalcTime = {
      * @returns 
      */
     plusMinusHourFrom : function(strDate, hours) {
-        return dayjs(strDate, ["YYYYMMDDHHmmss"], true).add(hours, 'hours').format(FORMAT.YYYYMMDDHHMMSS);
+        return dayjs(strDate, "YYYYMMDDHHmmss", true).add(hours, 'hours').format(FORMAT.YYYYMMDDHHMMSS);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 yyyyMMddHHmmss 형식의 String 타입으로 반환
@@ -310,7 +319,7 @@ const CalcTime = {
      * @returns 
      */
     plusMinusMinuteFrom : function(strDate, minutes) {
-        return dayjs(strDate, ["YYYYMMDDHHmmss"], true).add(minutes, 'minutes').format(FORMAT.YYYYMMDDHHMMSS);
+        return dayjs(strDate, "YYYYMMDDHHmmss", true).add(minutes, 'minutes').format(FORMAT.YYYYMMDDHHMMSS);
     },
     /**
      * 현재 날짜의 이전/이후 날짜를 yyyyMMddHHmmss 형식의 String 타입으로 반환
@@ -329,16 +338,27 @@ const CalcTime = {
  */
 const GetDateInterval = {
     /**
+     * 기준 날짜와 현재 날짜의 차이를 구하는 공통 내부 함수
+     * @param {string} strFixDate (YYYYMMDD)
+     * @param {string} unit ('year', 'month', 'day')
+     * @returns {number}
+     */
+    _getDiff: function(strFixDate, unit) {
+        const fixDate = dayjs(strFixDate, "YYYYMMDD").startOf('day');
+        const targetDate = dayjs().startOf('day');
+        
+        // diff(비교대상, 단위, 소수점포함여부)
+        // fixDate가 미래면 양수, 과거면 음수 반환
+        return fixDate.diff(targetDate, unit);
+    },
+    /**
      * 현재 날짜와 년 간격 구하기
      *   - 0:같다, 양수:크다, 음수:작다
      * @param {string} strFixDate (YYYYMMDD)
      * @returns 
      */
     intervalYears : function(strFixDate) {
-        let fixDate = dayjs(strFixDate, ["YYYYMMDD"], true).toDate();
-        let targetDate = dayjs().toDate();
-        let result = dayjs.duration(fixDate - targetDate).asYears();
-        return Object.is(Math.round(result), -0) ? 0 : Math.round(result);
+        return this._getDiff(strFixDate, 'year');
     },
     /**
      * 현재 날짜와 월 간격 구하기
@@ -347,10 +367,7 @@ const GetDateInterval = {
      * @returns 
      */
     intervalMonths : function(strFixDate) {
-        let fixDate = dayjs(strFixDate, ["YYYYMMDD"], true).toDate();
-        let targetDate = dayjs().toDate();
-        let result = dayjs.duration(fixDate - targetDate).asMonths();
-        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
+        return this._getDiff(strFixDate, 'month');
     },
     /**
      * 현재 날짜와 일자 간격 구하기
@@ -359,10 +376,7 @@ const GetDateInterval = {
      * @returns 
      */
     intervalDays : function(strFixDate) {
-        let fixDate = dayjs(strFixDate, ["YYYYMMDD"], true).toDate();
-        let targetDate = dayjs().toDate();
-        let result = dayjs.duration(fixDate - targetDate).asDays();
-        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
+        return this._getDiff(strFixDate, 'day');
     }
 };
 
@@ -370,6 +384,27 @@ const GetDateInterval = {
  * 시간 간격 구하기
  */
 const GetTimeInterval = {
+/**
+     * 공통 차이 계산 로직 (내부 함수)
+     * @param {string} strFixDate (YYYYMMDDHHmmss)
+     * @param {string} unit ('hour', 'minute', 'second')
+     */
+    _getDiff: function(strFixDate, unit) {
+        const fixDate = dayjs(strFixDate, "YYYYMMDDHHmmss", true);
+        const targetDate = dayjs();
+
+        if (!fixDate.isValid()) {
+            console.error("Invalid Date Format");
+            return Number.NaN;
+        }
+
+        // diff는 기본적으로 소수점을 버린 정수를 반환합니다.
+        // 미래면 양수, 과거면 음수를 반환합니다.
+        const result = fixDate.diff(targetDate, unit);
+        
+        // -0 문제를 방지하기 위한 처리
+        return result === 0 ? 0 : result;
+    },
     /**
      * 현재 날짜와 시간 간격 구하기
      *   - 0:같다, 양수:크다, 음수:작다
@@ -377,10 +412,7 @@ const GetTimeInterval = {
      * @returns 
      */
     intervalHours : function(strFixDate) {
-        let fixDate = dayjs(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
-        let targetDate = dayjs().toDate();
-        let result = dayjs.duration(fixDate - targetDate).asHours();
-        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
+        return this._getDiff(strFixDate, 'hour');
     },
     /**
      * 현재 날짜와 분 간격 구하기
@@ -389,10 +421,7 @@ const GetTimeInterval = {
      * @returns 
      */
     intervalMinutes : function(strFixDate) {
-        let fixDate = dayjs(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
-        let targetDate = dayjs().toDate();
-        let result = dayjs.duration(fixDate - targetDate).asMinutes();
-        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
+        return this._getDiff(strFixDate, 'minute');
     },
     /**
      * 현재 날짜와 초 간격 구하기
@@ -401,12 +430,10 @@ const GetTimeInterval = {
      * @returns 
      */
     intervalSeconds : function(strFixDate) {
-        let fixDate = dayjs(strFixDate, ["YYYYMMDDHHmmss"], true).toDate();
-        let targetDate = dayjs().toDate();
-        let result = dayjs.duration(fixDate - targetDate).asSeconds();
-        return Object.is(Math.ceil(result), -0) ? 0 : Math.ceil(result);
+        return this._getDiff(strFixDate, 'second');
     }
 };
+
 /**
  * 요일 구하기
  */
@@ -424,7 +451,7 @@ const GetDayOfWeek = {
      * @returns 
      */
     getDayOfWeekFromDate : function(strDate) {
-        return dayjs(strDate, ["YYYYMMDD"], true).day();
+        return dayjs(strDate, "YYYYMMDD", true).day();
     },
     /**
      * 현재 날짜의 1일의 요일 반환
@@ -439,7 +466,7 @@ const GetDayOfWeek = {
      * @returns 
      */
     getWeekStartDayFromDate : function(strDate) {
-        return dayjs(strDate, ["YYYYMMDD"], true).date(1).day();
+        return dayjs(strDate, "YYYYMMDD", true).date(1).day();
     },
     /**
      * 현재 날짜의 로케일 요일 구하기
@@ -457,7 +484,7 @@ const GetDayOfWeek = {
      * @returns 
      */
     getDayOfWeekFromDateLocale : function(strDate, locale) {
-        return dayjs(strDate, ["YYYYMMDD"], true).locale(locale).format('dd');
+        return dayjs(strDate, "YYYYMMDD", true).locale(locale).format('dd');
     }
 };
 
@@ -485,7 +512,7 @@ const GetDayOfMonth = {
      * @returns 
      */
     getEndOfMonthFromDate : function(strDate) {
-        return dayjs(strDate, ["YYYYMMDD"], true).daysInMonth();
+        return dayjs(strDate, "YYYYMMDD", true).daysInMonth();
     },
     /**
      * yyyyMMdd 형식의 String 타입에 해당하는 월의 마지막 일자를 yyyyMMdd 형식으로 반환
@@ -494,8 +521,8 @@ const GetDayOfMonth = {
      * @returns 
      */
     getEndOfMonthStringFromDate: function(strDate) {
-        const daysInMonth = dayjs(strDate, ["YYYYMMDD"], true).daysInMonth();
-        const lastDay = dayjs(strDate, ["YYYYMMDD"], true).date(daysInMonth);
+        const daysInMonth = dayjs(strDate, "YYYYMMDD", true).daysInMonth();
+        const lastDay = dayjs(strDate, "YYYYMMDD", true).date(daysInMonth);
         return lastDay.format('YYYYMMDD');
     }
 };
@@ -513,7 +540,7 @@ const UnixTimestamp = {
     },
     /**
      * milliseconds to Date
-     * @param {long} mills 
+     * @param {number} mills 
      * @returns 
      */
     millsToDate : function(mills) {
@@ -529,7 +556,7 @@ const UnixTimestamp = {
     },
     /**
      * timestamp to Date
-     * @param {long} timestamp 
+     * @param {number} timestamp 
      * @returns 
      */
     timestampToDate : function(timestamp) {
@@ -547,10 +574,11 @@ const Check = {
      * @returns 
      */
     isLastWeekOfMonth : function(strDate) {
-        const date = dayjs(strDate, ["YYYYMMDD"], true);
-        const lastDayOfMonth = date.clone().endOf('month');
-        const startOfLastWeek = lastDayOfMonth.clone().startOf('week');
-        return date.isSameOrAfter(startOfLastWeek);
+        const date = dayjs(strDate, "YYYYMMDD", true);
+        if ( !date.isValid() ) return false;
+
+        const startOfLastWeek = date.endOf('month').startOf('week');
+        return date.isSameOrAfter(startOfLastWeek, 'day');
     },
     /**
      * 해당 날짜가 월의 첫째주에 속하는지 체크
@@ -558,10 +586,11 @@ const Check = {
      * @returns 
      */
     isFistWeekOfMonth : function(strDate) {
-        const date = dayjs(strDate, ["YYYYMMDD"], true);
-        const firstDayOfMonth = date.clone().startOf('month');
-        const endOfFirstWeek = firstDayOfMonth.clone().endOf('week');
-        return date.isSameOrBefore(endOfFirstWeek);
+        const date = dayjs(strDate, "YYYYMMDD", true);
+        if ( !date.isValid() ) return false;
+
+        const endOfFirstWeek = date.startOf('month').endOf('week');
+        return date.isSameOrBefore(endOfFirstWeek, 'day');
     }
 };
 

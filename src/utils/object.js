@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.11.05
- * @version 1.0
+ * @version 1.1
  */
 
 /**
@@ -51,10 +51,9 @@ export const deepCopy = (source) => {
 export const deepMerge = (target, source) => {
     const isObject = (obj) => typeof obj === 'object' && obj !== null && !Array.isArray(obj);
 
-    if ( !isObject(target) || !isObject(source) ) {
-        console.warn('Target or Source must be an object (excluding null and arrays)');
-        return {};
-    }
+    if (!isObject(source)) return source;
+
+    const output = target;
 
     for (const key in source) {
         if ( Object.hasOwn(source, key) ) {
@@ -62,21 +61,18 @@ export const deepMerge = (target, source) => {
             const targetValue = target[key];
 
             if ( isObject(sourceValue) ) {
-                const newTarget = isObject(targetValue) ? targetValue : {};
-                target[key] = deepMerge(newTarget, sourceValue);
+                output[key] = deepMerge(isObject(targetValue) ? targetValue : {}, sourceValue);
             }  else if ( Array.isArray(sourceValue) ) {
-                target[key] = sourceValue.map(item => {
-                    if ( typeof item === 'object' && item !== null ) {
-                        const initialTarget = Array.isArray(item) ? [] : {};
-                        return deepMerge(initialTarget, item);
-                    }
+                output[key] = sourceValue.map(item => {
+                    if (Array.isArray(item)) return deepMerge([], item); // 배열 처리 대응 필요 시
+                    if (isObject(item)) return deepMerge({}, item);
                     return item;
                 });
             } else {
-                target[key] = sourceValue;
+                output[key] = sourceValue;
             }
         }
     }
     
-    return target;
+    return output;
 };

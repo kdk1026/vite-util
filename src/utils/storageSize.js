@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.03.04
- * @version 1.0
+ * @version 1.1
  */
 
 /**
@@ -21,5 +21,5 @@ const readableFileSize = (size) => {
     if (size == 0) return '0';
     const arrDataUnits = ['B', 'KB', 'MB', 'GB', 'TB'];
     const i = Number(Math.floor(Math.log(size) / Math.log(1024)));
-    return Math.round(size / Math.pow(1024, i)) + ' ' + arrDataUnits[_i];
+    return Math.round(size / Math.pow(1024, i)) + ' ' + arrDataUnits[i];
 }

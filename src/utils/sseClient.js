@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.10.26
- * @version 1.0
+ * @version 1.1
  */
 
 /**
@@ -13,6 +13,7 @@
  * });
  */
 export class SSEClient {
+
   constructor(url) {
     this.url = url;
     this.eventSource = null;
@@ -26,9 +27,9 @@ export class SSEClient {
     this.eventSource.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-
-        if (this.listeners.has("message")) {
-          this.listeners.get("message")(data);
+        const handler = this.listeners.get("message");
+        if ( handler ) {
+          handler(data);
         }
       } catch (e) {
         console.error(`Failed to parse SSE data: ${e}`, event.data);
@@ -42,13 +43,14 @@ export class SSEClient {
   on(eventName, handler) {
     if (this.eventSource) {
       this.eventSource.addEventListener(eventName, (event) => {
+        const messageEvent = event;
         try {
           // 데이터 파싱 처리
-          const data = JSON.parse(event.data);
+          const data = JSON.parse(messageEvent.data);
           handler(data);
         } catch (e) {
           console.info(`Failed JSON parse: ${e}`);
-          handler(event.data); // JSON이 아닌 순수 텍스트인 경우
+          handler(messageEvent.data); // JSON이 아닌 순수 텍스트인 경우
         }
       });
     }

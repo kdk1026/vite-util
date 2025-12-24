@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.0
+ * @version 1.1
  */
 
 /**
@@ -26,7 +26,7 @@ export const formatPhoneNumber = (value) => {
 
 /**
  * 전화번호 일반화 (일반전화, 휴대폰, 인터넷전화 등)
- * @param {*} value 
+ * @param {string} value 
  * @returns 
  */
 export const formatGeneralPhoneNumber = (value) => {
@@ -89,7 +89,7 @@ export const formatNumber = (value) => {
 
 /**
  * 숫자 금액 형식 변환 (세자리 콤마)
- * @param {number} num 
+ * @param {string} num 
  * @returns 
  */
 export const formatNumberComma = (num) => {

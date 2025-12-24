@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.0
+ * @version 1.1
  */
 
 import CryptoJS from "crypto-js";
@@ -23,17 +23,36 @@ export const encrypt = (text) => {
         return { encryptedText: '', iv: '' };
     }
 
-    const keyParam = `${secretKey.substring(18, 34)}${atob(import.meta.env.VITE_AES_KEY_HALF)}`;
-    const ivParam = `${iv.substring(34, 42)}${atob(import.meta.env.VITE_AES_IV_HALF)}` || CryptoJS.lib.WordArray.random(16);
+    if ( secretKey && iv ) {
+        const keyParam = `${secretKey.substring(18, 34)}${atob(import.meta.env.VITE_AES_KEY_HALF)}`;
+        const ivStr = `${iv.substring(34, 42)}${atob(import.meta.env.VITE_AES_IV_HALF)}`;
 
-    const cipher = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(keyParam), {
-        iv: ivParam,
-        padding: CryptoJS.pad.Pkcs7,
-        mode: CryptoJS.mode.CBC,
-    });
-    return {
-        encryptedText: cipher.toString(),
-        iv: CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(ivParam))
+        const ivWordArray = CryptoJS.enc.Utf8.parse(ivStr);
+    
+        const cipher = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(keyParam), {
+            iv: ivWordArray,
+            padding: CryptoJS.pad.Pkcs7,
+            mode: CryptoJS.mode.CBC,
+        });
+
+        return {
+            encryptedText: cipher.toString(),
+            iv: CryptoJS.enc.Base64.stringify(ivWordArray)
+        }
+    } else if ( secretKey && !iv ) {
+        const keyParam = `${secretKey.substring(18, 34)}${atob(import.meta.env.VITE_AES_KEY_HALF)}`;
+        const ivWordArray = CryptoJS.lib.WordArray.random(16);
+
+        const cipher = CryptoJS.AES.encrypt(text, CryptoJS.enc.Utf8.parse(keyParam), {
+            iv: ivWordArray,
+            padding: CryptoJS.pad.Pkcs7,
+            mode: CryptoJS.mode.CBC,
+        });
+        
+        return {
+            encryptedText: cipher.toString(),
+            iv: CryptoJS.enc.Base64.stringify(ivWordArray)
+        }
     }
 }
 
@@ -50,24 +69,33 @@ export const decrypt = (encryptedText, ivStr, isBase64Iv) => {
         return '';
     }
 
-    const keyParam = `${secretKey.substring(18, 34)}${atob(import.meta.env.VITE_AES_KEY_HALF)}`;
-    let ivParam;
-    if ( ivStr && typeof ivStr === 'string' && ivStr.trim() && isBase64Iv ) {
-        ivParam = CryptoJS.enc.Base64.parse(ivStr).toString(CryptoJS.enc.Utf8);
-    } else {
-        ivParam = `${iv.substring(34, 42)}${atob(import.meta.env.VITE_AES_IV_HALF)}` || CryptoJS.lib.WordArray.random(16);
-    }
+    if ( secretKey ) {
+        const keyParam = `${secretKey.substring(18, 34)}${atob(import.meta.env.VITE_AES_KEY_HALF)}`;
 
-    const decipher = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(keyParam), {
-        iv: ivParam,
-        padding: CryptoJS.pad.Pkcs7,
-        mode: CryptoJS.mode.CBC,
-    })
+        let ivParam;
+        if ( ivStr && typeof ivStr === 'string' && ivStr.trim() && isBase64Iv ) {
+            ivParam = CryptoJS.enc.Base64.parse(ivStr).toString(CryptoJS.enc.Utf8);
+        } else if ( ivStr && typeof ivStr === 'string' && ivStr.trim() && !isBase64Iv ) {
+            ivParam = ivStr;
+        } else if ( !ivStr && iv ) {
+            ivParam = `${iv.substring(34, 42)}${atob(import.meta.env.VITE_AES_IV_HALF)}`;
+        } else {
+            ivParam = CryptoJS.lib.WordArray.random(16).toString();
+        }
 
-    try {
-        return decipher.toString(CryptoJS.enc.Utf8);
-    } catch (e) {
-        console.error("복호화에 실패했습니다.", e);
-        return '';
+        const ivWordArray = CryptoJS.enc.Utf8.parse(ivParam);
+
+        const decipher = CryptoJS.AES.decrypt(encryptedText, CryptoJS.enc.Utf8.parse(keyParam), {
+            iv: ivWordArray,
+            padding: CryptoJS.pad.Pkcs7,
+            mode: CryptoJS.mode.CBC,
+        })
+    
+        try {
+            return decipher.toString(CryptoJS.enc.Utf8);
+        } catch (e) {
+            console.error("복호화에 실패했습니다.", e);
+            return '';
+        }
     }
 }

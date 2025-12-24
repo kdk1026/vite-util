@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.0
+ * @version 1.1
  */
 
 /**
@@ -24,7 +24,7 @@ export const download = (data, fileName) => {
         return;
     }
 
-    const decodeFileName = decodeURIComponent(fileName).replace(/\+/g, ' ');
+    const decodeFileName = decodeURIComponent(fileName).replaceAll('+', ' ');
 
     const blob = new Blob([data], { type: 'application/octet-stream' });
     const url = window.URL.createObjectURL(blob);
@@ -146,11 +146,19 @@ export const blobToBase64 = (fileByteArray, fileName) => {
         const reader = new FileReader();
 
         reader.onloadend = () => {
-            console.log('reader.result:', reader.result);
-            resolve(reader.result.split(',')[1]);
+            const result = reader.result;
+
+            if ( typeof result === 'string' ) {
+                const base64String = result.split(',')[1];
+                resolve(base64String || '');
+            } else {
+                reject(new Error('Failed to convert blob to base64 string.'));
+            }
         };
 
-        reader.onerror = reject;
+        reader.onerror = () => {
+            reject(reader.error || new Error('FileReader error occurred.'));
+        };
 
         reader.readAsDataURL(file);
     });

@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.0
+ * @version 1.1
  */
 
 import dayjs from "dayjs";
@@ -13,7 +13,7 @@ import dayjs from "dayjs";
  * @returns 
  */
 export const isEmpty = (val) => {
-    return (typeof val === 'undefined' || val === null || val === '');
+    return (val === undefined || val === null || val === '');
 };
 
 /**
@@ -23,10 +23,10 @@ export const isEmpty = (val) => {
  */
 export const isBlank = (val) => {
     return (
-		typeof val === 'undefined' || 
+		val === undefined || 
 		val === null || 
 		val === '' || 
-		(typeof val === 'string' && val.replace(/ /gi, '') === '')
+		(typeof val === 'string' && val.replaceAll(/ /gi, '') === '')
 	);
 };
 
@@ -98,12 +98,12 @@ export const Type = {
      * @returns 
      */
     isNumber : (val) => {
-        if (val === null || typeof val === 'undefined') {
+        if (val === null || val === undefined) {
             return false;
         }
 
         if (typeof val === 'number') {
-            return !isNaN(val) && isFinite(val);
+            return !Number.isNaN(val) && Number.isFinite(val);
         } else if (typeof val === 'string') {
             return /^\d+$/.test(val);
         } else {
@@ -113,7 +113,7 @@ export const Type = {
 
     /**
      * 영문 체크
-     * @param {*} val 
+     * @param {string} val 
      * @returns 
      */
     isEnglish : (val) => {
@@ -315,13 +315,13 @@ export const Format = {
             return false;
         }
 
-        const ipv4OctetRegex = "(?:25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]\\d|\\d)";
+        const ipv4OctetRegex = String.raw`(?:25[0-5]|2[0-4]\d|1\d{2}|[1-9]\d|\d)`;
 
         const ipv4Regex = new RegExp(
             "^" +
-            ipv4OctetRegex + "\\." +
-            ipv4OctetRegex + "\\." +
-            ipv4OctetRegex + "\\." +
+            ipv4OctetRegex + String.raw`\.` +
+            ipv4OctetRegex + String.raw`\.` +
+            ipv4OctetRegex + String.raw`\.` +
             ipv4OctetRegex + "$"
         );
 

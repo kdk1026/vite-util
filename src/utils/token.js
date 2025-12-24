@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.1
+ * @version 1.2
  */
 
 import { jwtDecode } from "jwt-decode";
@@ -35,8 +35,12 @@ export const isTokenExpired = (accessToken) => {
 
     try {
         const decodedToken = jwtDecode(accessToken);
-        const currentTime = Date.now() / 1000;
 
+        if ( !decodedToken.exp ) {
+            return false;
+        }
+
+        const currentTime = Date.now() / 1000;
         return decodedToken.exp < currentTime;
     } catch (error) {
         console.error('Error decoding token:', error);
@@ -66,5 +70,7 @@ export const setToken = (accessToken) => {
  */
 export const transferTokenFromSessionToLocal = () => {
     const accessToken = getToken();
-    localStorage.setItem(ACCESS_TOKEN, accessToken);
+    if ( accessToken ) {
+        localStorage.setItem(ACCESS_TOKEN, accessToken);
+    }
 }

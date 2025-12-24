@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.11.05
- * @version 1.0
+ * @version 1.1
  */
 
 /*
@@ -186,11 +186,15 @@ export const setCookieArray = (name, value, days, profile, path, domain) => {
  * @returns 
  */
 export const getCookieData = (name) => {
-    let cookieValue = getCookie(name);
+    const cookieValue = getCookie(name);
 
     try {
-        return JSON.parse(cookieValue);
+        if ( cookieValue ) {
+            return JSON.parse(cookieValue);
+        }
     } catch (error) {
         console.error("JSON 파싱 실패:", error);  
     }
+
+    return null;
 };

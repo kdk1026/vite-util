@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.0
+ * @version 1.1
  */
 
 /**
@@ -34,7 +34,7 @@ export const isUserAgentMobile = () => {
         /windows phone/i.test(userAgent) ||
         /webos|touchpad|hpwos/i.test(userAgent)
     );
-}
+};
 
 /**
  * Android, iOS 여부 체크
@@ -71,7 +71,7 @@ export const isCheckUserAgent = (checkString) => {
     }
 
     const agent = navigator.userAgent;
-    return agent.indexOf(checkString) > -1;
+    return agent.includes(checkString);
 };
 
 /**
@@ -97,10 +97,10 @@ export const makeAndroidAppLinkUrl = (host, scheme, packageName, screen) => {
         return '';
     }
 
-    if ( !screen  ) {
-        return 'intent://' + host + '/#Intent;package=' + packageName + ';scheme=' + scheme + ';end';
-    } else {
+    if ( screen  ) {
         return 'intent://' + host + '/#Intent;package=' + packageName + ';scheme=' + scheme + ';S.screen=' + screen + ';end';
+    } else {
+        return 'intent://' + host + '/#Intent;package=' + packageName + ';scheme=' + scheme + ';end';
     }
 };
 
@@ -124,10 +124,10 @@ export const makeURLSchemeIOSAppLinkUrl = (host, scheme, screen) => {
         return '';
     }
 
-    if ( !screen ) {
-        return scheme + '://' + host;
-    } else {
+    if ( screen ) {
         return scheme + '://' + host + '?screen=' + screen;
+    } else {
+        return scheme + '://' + host;
     }
 };
 

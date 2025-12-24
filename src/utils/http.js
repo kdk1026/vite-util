@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.1
+ * @version 1.2
  */
 
 import axios from "axios";
@@ -57,7 +57,7 @@ instance.interceptors.response.use(
         const headers = response.headers;
 
         const accessToken = headers['accessToken'];
-        if ( accessToken ) {
+        if ( typeof accessToken === 'string' ) {
             setToken(accessToken);
         }
 
@@ -79,34 +79,36 @@ const onErrorCase = (error) => {
         onError(998, `요청이 만료되었습니다. ${error.message}`);
     }
 
-    const { status, statusText } = error.response;
-    console.log(statusText);
-
-	switch (status) {
-		case 400:
-            alert("잘못된 요청입니다.");
-			onError(status, "잘못된 요청입니다.");
-			break;
-		case 401:
-            alert("인증 실패입니다.");
-			onError(status, "인증 실패입니다.");
-			break;
-		case 403:
-            alert("권한이 없습니다.");
-			onError(status, "권한이 없습니다.");
-			break;
-		case 404:
-            alert("찾을 수 없는 URL 입니다.");
-			onError(status, "찾을 수 없는 URL 입니다.");
-			break;
-		case 500:
-            alert("서버에 문제가 발생했습니다.");
-			onError(status, "서버에 문제가 발생했습니다.");
-			break;
-		default:
-            alert(`문제가 발생했습니다. ${error.message}`);
-			onError(status, `문제가 발생했습니다. ${error.message}`);
-	}
+    if ( error.response ) {
+        const { status, statusText } = error.response;
+        console.log(statusText);
+    
+        switch (status) {
+            case 400:
+                alert("잘못된 요청입니다.");
+                onError(status, "잘못된 요청입니다.");
+                break;
+            case 401:
+                alert("인증 실패입니다.");
+                onError(status, "인증 실패입니다.");
+                break;
+            case 403:
+                alert("권한이 없습니다.");
+                onError(status, "권한이 없습니다.");
+                break;
+            case 404:
+                alert("찾을 수 없는 URL 입니다.");
+                onError(status, "찾을 수 없는 URL 입니다.");
+                break;
+            case 500:
+                alert("서버에 문제가 발생했습니다.");
+                onError(status, "서버에 문제가 발생했습니다.");
+                break;
+            default:
+                alert(`문제가 발생했습니다. ${error.message}`);
+                onError(status, `문제가 발생했습니다. ${error.message}`);
+        }
+    }
 };
 
 const onError = (status, message) => {

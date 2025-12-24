@@ -1,13 +1,13 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.11.13
- * @version 1.0
+ * @version 1.1
  * 
  * 일반 브라우저가 아니기 때문에 다른 동작이나 동작을 안하는 이슈가 있음
  */
 
 const isFullUrl = (targetUrl) => {
-    return targetUrl.match(/^https?:\/\//);
+    return /^https?:\/\//.test(targetUrl);
 };
 
 export const Kakaotalk = {
@@ -247,7 +247,10 @@ export const Telegram = {
      */
     isTelegramInAppBrowser : () => {
         const userAgent = navigator.userAgent.toLowerCase();
-        return userAgent.includes('telgram') || window.TelegramWebviewProxy === undefined || window.TelegramWebview === undefined;
+        const isTelegramUA = userAgent.includes('telegram');
+        const hasTelegramObject = !!window.Telegram?.WebApp;
+
+        return isTelegramUA || hasTelegramObject;
     },
 
     /**

@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
- * @version 1.0
+ * @version 1.1
  */
 
 const database = 'myDatabase';
@@ -10,7 +10,7 @@ const objectStoreName = 'myObjectStore';
 const openDatabase = () => {
     return new Promise((resolve, reject) => {
         // IndexedDB 열기/생성
-        let request = indexedDB.open(database, 1);
+        const request = indexedDB.open(database, 1);
 
         // 데이터베이스 버전 업데이트 시 실행
         request.onupgradeneeded = function(event) {
@@ -25,52 +25,48 @@ const openDatabase = () => {
 
         // 데이터베이스 열기 실패 시 실행
         request.onerror = function(event) {
-            reject(event.target.error);
+            const error = event.target.error;
+            reject(new Error(error?.message || "데이터베이스를 여는 중 알 수 없는 오류가 발생했습니다."));
         };
     });
 };
 
-export const addDbData = (data) => {
+export const addDbData = async (data) => {
     if (!data) {
         console.log("데이터가 제공되지 않았습니다.");
         return;
     }
 
-    openDatabase()
-        .then(db => {
-            // 트랜잭션 생성 (읽기/쓰기 모드)
-            let transaction = db.transaction([objectStoreName], "readwrite");
+    try {
+        const db = await openDatabase();
+        const transaction = db.transaction([objectStoreName], "readwrite");
+        const objectStore = transaction.objectStore(objectStoreName);
 
-            // 오브젝트 스토어 접근
-            let objectStore = transaction.objectStore(objectStoreName);
+        const request = objectStore.put({ id: 1, data: data });
 
-            // 데이터 추가
-            let request = objectStore.add({ id: 1, data: data });
+        request.onsuccess = () => {
+            console.log("데이터가 성공적으로 추가/업데이트되었습니다.");
+        };
 
-            request.onsuccess = function() {
-                console.log("데이터가 성공적으로 추가되었습니다.");
-            };
-
-            request.onerror = function(event) {
-                console.log("데이터 추가 실패:", event.target.error);
-            };
-        })
-        .catch(error => {
-            console.log("데이터베이스 열기 실패:", error);
-        });
+        request.onerror = (event) => {
+            console.log("데이터 추가 실패:", event.target.error);
+        };
+    } catch (error) {
+        console.log("데이터베이스 열기 실패:", error);
+    }
 };
 
 export const getDbData = () => {
     return new Promise((resolve, reject) => {
         openDatabase()
             .then(db => {
-                let transaction = db.transaction([objectStoreName], "readonly");
-                let objectStore = transaction.objectStore(objectStoreName);
-                let request = objectStore.get(1);
+                const transaction = db.transaction([objectStoreName], "readonly");
+                const objectStore = transaction.objectStore(objectStoreName);
+                const request = objectStore.get(1);
 
                 request.onsuccess = function(event) {
-                    let data = event.target.result?.data;
-                    resolve(data);
+                    const result = event.target.result;
+                    resolve(result ? result.data : "");
                 };
 
                 request.onerror = function(event) {
@@ -89,9 +85,9 @@ export const removeDbData = () => {
     return new Promise((resolve, reject) => {
         openDatabase()
             .then(db => {
-                let transaction = db.transaction([objectStoreName], "readwrite");
-                let objectStore = transaction.objectStore(objectStoreName);
-                let request = objectStore.clear();
+                const transaction = db.transaction([objectStoreName], "readwrite");
+                const objectStore = transaction.objectStore(objectStoreName);
+                const request = objectStore.clear();
     
                 request.onsuccess = function() {
                     console.log("IndexedDB 데이터가 성공적으로 삭제되었습니다.");
@@ -111,7 +107,7 @@ export const removeDbData = () => {
 };
 
 export const removeDatabase = () => {
-    let deleteRequest = indexedDB.deleteDatabase(database);
+    const deleteRequest = indexedDB.deleteDatabase(database);
 
     deleteRequest.onsuccess = function() {
         console.log("데이터베이스가 성공적으로 삭제되었습니다.");
@@ -121,7 +117,7 @@ export const removeDatabase = () => {
         console.log("데이터베이스 삭제 실패:", event.target.error);
     };
 
-    deleteRequest.onblocked = function(event) {
-        console.log("데이터베이스 삭제가 블록되었습니다:", event.target.error);
+    deleteRequest.onblocked = function() {
+        console.log("데이터베이스 삭제가 블록되었습니다. 모든 연결을 닫아야 합니다.");
     };
 };

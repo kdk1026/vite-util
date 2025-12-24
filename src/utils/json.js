@@ -1,7 +1,7 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.05.23
- * @version 1.0
+ * @version 1.1
  */
 
 /**
@@ -20,6 +20,8 @@ export const jsonToObject = (jsonStr) => {
     } catch (error) {
         console.error("JSON 파싱 실패:", error);  
     }
+
+    return null;
 };
 
 /**
@@ -38,6 +40,8 @@ export const objectToJsonString = (obj) => {
     } catch (error) {
         console.error("JSON 문자열 변환 실패:", error);  
     }
+
+    return null;
 };
 
 /**
@@ -56,4 +60,6 @@ export const objectToJsonStringPretty = (obj) => {
     } catch (error) {
         console.error("JSON 문자열 변환 실패:", error);  
     }
+
+    return null;
 };
