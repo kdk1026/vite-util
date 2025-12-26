@@ -7,7 +7,7 @@ export const Kakao = {
      * 
      * @param {Function} loginFailCallBack
      */
-    loginWithKakao: (loginFailCallBack) => {
+    loginWithKakao: async (loginFailCallBack) => {
         if ( typeof loginFailCallBack !== 'function' ) {
             console.error("loginFailCallBack is not function");
             return;
