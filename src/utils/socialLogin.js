@@ -13,14 +13,17 @@ export const Kakao = {
             return;
         }
 
-        Kakao.Auth.login({
-            success: function (response) {
-                const accessToken = response.access_token;
-                return accessToken;
-            },
-            fail: function (error) {
-                loginFailCallBack(error);
-            }
+        return new Promise((resolve, reject) => {
+            Kakao.Auth.login({
+                success: function (response) {
+                    const accessToken = response.access_token;
+                    resolve(accessToken);
+                },
+                fail: function (error) {
+                    loginFailCallBack(error);
+                    reject(error);
+                }
+            });
         });
     },
     /**
