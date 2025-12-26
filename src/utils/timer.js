@@ -5,6 +5,13 @@
  * @description 매개변수 3개부터는 RORO 패턴 적용
  */
 
+export const SUPPORTED_LANGS = {
+    KO: 'ko',
+    EN: 'en',
+    JA: 'ja',
+    ZH: 'zh'
+};
+
 /**
  * 타이머
  * * @param {object} options
@@ -16,7 +23,7 @@
  * @example
  *  timer({
  *      totalSeconds: 1800,
- *      lang: 'ko',
+ *      lang: SUPPORTED_LANGS.KO,
  *      onTick: ({ minutes, seconds, label }) => {
  *          console.log(`남은 시간: ${minutes}${label.min} ${seconds}${label.sec}`);
  *      },
