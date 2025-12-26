@@ -1,7 +1,7 @@
 /**
  * @link https://developers.kakao.com/docs/latest/ko/kakaologin/js
  */
-export const Kakao = {
+export const KakaoAuth = {
     /**
      * 카카오 로그인
      * 
@@ -14,7 +14,7 @@ export const Kakao = {
         }
 
         return new Promise((resolve, reject) => {
-            Kakao.Auth.login({
+            window.Kakao.Auth.login({
                 success: function (response) {
                     const accessToken = response.access_token;
                     resolve(accessToken);
@@ -49,10 +49,10 @@ export const Kakao = {
         }
 
         // 토큰 할당
-        Kakao.Auth.setAccessToken(accessToken);
+        window.Kakao.Auth.setAccessToken(accessToken);
 
         // 사용자 정보 가져오기
-        Kakao.API.request({
+        window.Kakao.API.request({
             url: '/v2/user/me',
             success: function (response) {
                 userMeSucCallBack(response);
@@ -73,14 +73,14 @@ export const Kakao = {
             return;
         }
 
-        if ( !Kakao.Auth.getAccessToken() ) {
+        if ( !window.Kakao.Auth.getAccessToken() ) {
             console.log('Not logged in.');
             return;
         }
 
         // 접근 토큰 무효화
-        Kakao.Auth.logout(function() {
-            logoutCallBack( Kakao.Auth.getAccessToken() );
+        window.Kakao.Auth.logout(function() {
+            logoutCallBack( window.Kakao.Auth.getAccessToken() );
         });
     }
 };
@@ -92,7 +92,7 @@ export const Kakao = {
  * @link https://developers.naver.com/docs/login/sdks/sdks.md
  * @description SDK 버전 2 (권장)
  */
-export const Naver = {
+export const NaverAuth = {
     /**
      * 네이버 로그인
      * @param {string} clientId 
