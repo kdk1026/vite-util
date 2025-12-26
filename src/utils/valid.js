@@ -2,6 +2,7 @@
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.02.28
  * @version 1.1
+ * @description 매개변수 3개부터는 RORO 패턴 적용
  */
 
 import dayjs from "dayjs";
@@ -32,12 +33,13 @@ export const isBlank = (val) => {
 
 /**
  * 문자열 길이 최소/최대 길이 준수 여부
- * @param {string} val 
- * @param {number} minLen 
- * @param {number} maxLen 
+ * * @param {object} options 
+ * @param {string} options.val 
+ * @param {number} options.minLen 
+ * @param {number} options.maxLen 
  * @returns 
  */
-export const isLengthOver = (val, minLen, maxLen) => {
+export const isLengthOver = ({val, minLen, maxLen} = {}) => {
     if ( typeof val !== 'string' || !val?.trim() ) {
         console.error('val is empty or null.');
         return false;

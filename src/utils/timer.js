@@ -2,25 +2,30 @@
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.11.04
  * @version 1.0
+ * @description 매개변수 3개부터는 RORO 패턴 적용
  */
 
 /**
  * 타이머
- * - 사용 예시
- *  timer(1800, 'ko',
- *      ({ minutes, seconds, label }) => {
+ * * @param {object} options
+ * @param {number} options.totalSeconds 
+ * @param {string} options.lang 
+ * @param {function} options.onTick 
+ * @param {function} options.onEnd 
+ * 
+ * @example
+ *  timer({
+ *      totalSeconds: 1800,
+ *      lang: 'ko',
+ *      onTick: ({ minutes, seconds, label }) => {
  *          console.log(`남은 시간: ${minutes}${label.min} ${seconds}${label.sec}`);
  *      },
- *      () => {
+ *      onEnd: () => {
  *          console.log('타이머 종료');
  *      }
- *  );
- * @param {number} totalSeconds 
- * @param {string} lang 
- * @param {function } onTick 
- * @param {function } onEnd 
+ *  });
  */
-export const timer = (totalSeconds, lang, onTick, onEnd) => {
+export const timer = ({totalSeconds, lang, onTick, onEnd} = {}) => {
     if ( typeof totalSeconds !== 'number' ) {
         console.error("totalSeconds is not number");
         return;

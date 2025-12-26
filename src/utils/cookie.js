@@ -2,6 +2,7 @@
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2025.11.05
  * @version 1.1
+ * @description 매개변수 3개부터는 RORO 패턴 적용
  */
 
 /*
@@ -19,14 +20,15 @@
 
 /**
  * 쿠키 생성
- * @param {string} name 
- * @param {string} value 
- * @param {number} days 
- * @param {string} profile 
- * @param {undefined|null|string} path 
- * @param {undefined|null|string} domain 
+ * * @param {object} options
+ * @param {string} options.name 
+ * @param {string} options.value 
+ * @param {number} options.days 
+ * @param {string} options.profile 
+ * @param {undefined|null|string} options.path 
+ * @param {undefined|null|string} options.domain 
  */
-export const setCookie = (name, value, days, profile, path, domain) => {
+export const setCookie = ({name, value, days, profile, path = '', domain = ''} = {}) => {
     if ( typeof name !== 'string' || !name.trim() ) {
         console.error('name is empty or null.');
         return;
@@ -86,13 +88,21 @@ export const setCookie = (name, value, days, profile, path, domain) => {
 
 /**
  * 쿠키 삭제
- * @param {string} name
- * @param {string} profile
- * @param {undefined|null|string} path 
- * @param {undefined|null|string} domain 
+ * * @param {object} options
+ * @param {string} options.name
+ * @param {string} options.profile
+ * @param {undefined|null|string} options.path 
+ * @param {undefined|null|string} options.domain 
  */
-export const removeCookie = (name, profile, path, domain) => {
-    setCookie(name, '', -1, profile, path, domain);
+export const removeCookie = ({name, profile, path = '', domain = ''} = {}) => {
+    setCookie({
+        name: name, 
+        value: '', 
+        days: -1, 
+        profile: profile, 
+        path: path, 
+        domain: domain
+    });
 };
 
 /**
@@ -126,14 +136,15 @@ export const getCookie = (name) => {
 
 /**
  * Object 쿠키 생성
- * @param {string} name 
- * @param {object} value 
- * @param {number} days 
- * @param {string} profile 
- * @param {undefined|null|string} path 
- * @param {undefined|null|string} domain 
+ * * @param {object} options
+ * @param {string} options.name 
+ * @param {object} options.value 
+ * @param {number} options.days 
+ * @param {string} options.profile 
+ * @param {undefined|null|string} options.path 
+ * @param {undefined|null|string} options.domain 
  */
-export const setCookieObject = (name, value, days, profile, path, domain) => {
+export const setCookieObject = ({name, value, days, profile, path = '', domain = ''} = {}) => {
     if ( typeof value !== 'object' ) {
         console.error('value is not object.');
         return;
@@ -146,7 +157,14 @@ export const setCookieObject = (name, value, days, profile, path, domain) => {
 
     try {
         const cookieValue = JSON.stringify(value);
-        setCookie(name, cookieValue, days, profile, path, domain);
+        setCookie({
+            name: name, 
+            value: cookieValue, 
+            days: days, 
+            profile: profile, 
+            path: path, 
+            domain: domain
+        });
     } catch (error) {
         console.error("JSON 문자열 변환 실패:", error);  
     }
@@ -154,14 +172,15 @@ export const setCookieObject = (name, value, days, profile, path, domain) => {
 
 /**
  * Array 쿠키 생성
- * @param {string} name 
- * @param {Array<*>} value 
- * @param {number} days 
- * @param {string} profile 
- * @param {undefined|null|string} path 
- * @param {undefined|null|string} domain 
+ * * @param {object} options
+ * @param {string} options.name 
+ * @param {Array<*>} options.value 
+ * @param {number} options.days 
+ * @param {string} options.profile 
+ * @param {undefined|null|string} options.path 
+ * @param {undefined|null|string} options.domain 
  */
-export const setCookieArray = (name, value, days, profile, path, domain) => {
+export const setCookieArray = ({name, value, days, profile, path = '', domain = ''} = {}) => {
     if ( !Array.isArray(value) ) {
         console.error('value is not array.');
         return;        
@@ -174,7 +193,14 @@ export const setCookieArray = (name, value, days, profile, path, domain) => {
 
     try {
         const cookieValue = JSON.stringify(value);
-        setCookie(name, cookieValue, days, profile, path, domain);
+        setCookie({
+            name: name, 
+            value: cookieValue, 
+            days: days, 
+            profile: profile, 
+            path: path, 
+            domain: domain
+        });
     } catch (error) {
         console.error("JSON 문자열 변환 실패:", error);  
     }

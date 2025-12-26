@@ -1,4 +1,11 @@
 /**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2025.12.25
+ * @version 1.0
+ * @description 매개변수 3개부터는 RORO 패턴 적용
+ */
+
+/**
  * @link https://developers.kakao.com/docs/latest/ko/kakaologin/js
  */
 export const KakaoAuth = {
@@ -28,11 +35,12 @@ export const KakaoAuth = {
     },
     /**
      * 카카오 사용자 정보 가져오기
-     * @param {string} accessToken 
-     * @param {Function} userMeSucCallBack 
-     * @param {Function} userMeFailCallBak 
+     * * @param {object} options
+     * @param {string} options.accessToken 
+     * @param {Function} options.userMeSucCallBack 
+     * @param {Function} options.userMeFailCallBak 
      */
-    getUserInfoWithKakao: (accessToken, userMeSucCallBack, userMeFailCallBak) => {
+    getUserInfoWithKakao: ({accessToken, userMeSucCallBack, userMeFailCallBak} = {}) => {
         if ( typeof accessToken !== 'string' || !accessToken?.trim() ) {
             console.error('accessToken is empty or null.');
             return false;
