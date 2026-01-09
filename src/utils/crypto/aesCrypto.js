@@ -24,7 +24,9 @@ const validateString = (value, name) => {
  * @returns {{cipherText: string, iv: string}} - 암호화된 텍스트와 IV (모두 Base64 인코딩)
  */
 export const encrypt = (plaintext, b64Key) => {
-    if ( !validateString(plaintext, 'plaintext') ) return '';
+    if ( !validateString(plaintext, 'plaintext') ) {
+        return { cipherText: '', iv: '' };
+    }
 
     const ivWordArray = CryptoJS.lib.WordArray.random(16);
 
@@ -53,8 +55,8 @@ export const decrypt = ({b64Key, b64Iv, b64CipherText} = {}) => {
     if ( !validateString(b64Iv, 'b64Iv') ) return '';
     if ( !validateString(b64CipherText, 'b64CipherText') ) return '';
 
-    let iv;
-    if ( b64Iv && typeof ivStr === 'string' && b64Iv.trim() ) {
+    let iv = '';
+    if ( b64Iv && typeof b64Iv === 'string' && b64Iv.trim() ) {
         iv = CryptoJS.enc.Base64.parse(b64Iv).toString(CryptoJS.enc.Utf8);
     }
 
