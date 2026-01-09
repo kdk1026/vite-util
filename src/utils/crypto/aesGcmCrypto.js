@@ -49,8 +49,13 @@ const uint8ArrayToBase64 = (uint8Array) => {
  * .then(result => console.log(result));
  */
 export const aesGcmEncrypt = async (plaintext, b64Key) => {
-    if ( !validateString(plaintext, 'plaintext') ) return '';
-    if ( !validateString(b64Key, 'b64Key') ) return '';
+    if ( !validateString(plaintext, 'plaintext') ) {
+        return { cipherText: '', iv: '' };
+    }
+
+    if ( !validateString(b64Key, 'b64Key') ) {
+        return { cipherText: '', iv: '' };
+    }
 
     try {
         const encoder = new TextEncoder();
