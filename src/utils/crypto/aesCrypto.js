@@ -4,6 +4,7 @@
  * @version 1.2
  * @description 매개변수 3개부터는 RORO 패턴 적용
  * @description iv 고정 제거
+ * @description 과거 권장, 현재 비권장
  */
 
 import CryptoJS from "crypto-js";

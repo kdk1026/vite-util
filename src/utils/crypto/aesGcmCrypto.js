@@ -1,7 +1,8 @@
 /**
  * @author 김대광 <daekwang1026@gmail.com>
  * @since 2026.01.09
- * @version 1.9
+ * @version 1.0
+ * @description 강력 권장
  */
 
 const validateString = (value, name) => {
