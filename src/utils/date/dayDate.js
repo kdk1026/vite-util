@@ -214,7 +214,7 @@ const CalcDate = {
      * @param {number} months 
      * @returns 
      */
-    plusMinusMonthString : function(strDate, months) {
+    plusMinusMonthFrom : function(strDate, months) {
         return dayjs(strDate, "YYYYMMDD", true).add(months, 'months').format(FORMAT.YYYYMMDD);
     },
     /**
