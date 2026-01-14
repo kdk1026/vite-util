@@ -289,18 +289,18 @@ export const makeCardNo = (value) => {
 /**
  * 수치를 금액 표현으로 변환
  * - #,###
- * @param {string | number} num 
+ * @param {string | number} value 
  * @returns
  */
-export const convertMoneyFormat = (num) => {
-    if (num === null || num === undefined || num === '') {
+export const convertMoneyFormat = (value) => {
+    if (value === null || value === undefined || value === '') {
         return null;
     }
 
-    const cleanNum = String(num).replaceAll(',', '');
+    const cleanNum = String(value).replaceAll(',', '');
 
     if (Number.isNaN(cleanNum) || cleanNum.trim() === '') {
-        console.warn('Invalid input value:', num);
+        console.warn('Invalid input value:', value);
         return null;
     }
 
