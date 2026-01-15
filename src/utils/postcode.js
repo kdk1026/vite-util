@@ -1,6 +1,8 @@
 /**
  * 다음 주소 API
- * @returns 
+ * @returns
+ * @example
+ * const result = await openDaumPostcode();
  */
 export const openDaumPostcode = () => {
     // eslint-disable-next-line no-unused-vars
