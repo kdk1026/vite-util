@@ -9,11 +9,11 @@ export const openDaumPostcode = () => {
     return new Promise((resolve, reject) => {
         new window.daum.Postcode({
             oncomplete: function(data) {
-                const result = {}
-                result.zonecode = data.zonecode;
-                result.roadAddress = data.roadAddress;
-                result.jibunAddress = data.jibunAddress;
-                resolve(result);
+                resolve({
+                    zonecode: data.zonecode,
+                    roadAddress: data.roadAddress,
+                    jibunAddress: data.jibunAddress,
+                });
             }
         }).open();
     });
