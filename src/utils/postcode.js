@@ -3,6 +3,9 @@
  * @returns
  * @example
  * const result = await openDaumPostcode();
+ * 
+ * @description
+ * react는 react-daum-postcode 사용해야 함
  */
 export const openDaumPostcode = () => {
     // eslint-disable-next-line no-unused-vars
