@@ -1,3 +1,9 @@
+/**
+ * @author 김대광 <daekwang1026@gmail.com>
+ * @since 2026.01.23
+ * @version 1.0
+ */
+
 import Cookies from "js-cookie";
 
 const DEFAULT_OPTIONS = {
@@ -58,7 +64,7 @@ export const cookieUtil = {
     /**
      * JSON 데이터 저장 (객체/배열)
      * @param {string} name 
-     * @param {string} value 
+     * @param {object|any[]} value
      * @param {undefined|null|object} options 
      */
     setJSON: (name, value, options, ) => {
@@ -67,8 +73,9 @@ export const cookieUtil = {
             return;
         }
 
-        if ( typeof value !== 'string' || !value.trim() ) {
-            console.error('value is empty or null.');
+        const isEmpty = value && Object.keys(value).length === 0;
+        if (!value || isEmpty) {
+            console.warn('value is empty ({} or []). storage skipped.');
             return;
         }
 
