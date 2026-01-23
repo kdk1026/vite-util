@@ -17,7 +17,9 @@ export const isTokenExpiringSoon = (exp, thresholdMinutes = 5) => {
         return;
     }
 
-    if (exp == 0) return true;
+    if (exp == 0) {
+        return true;
+    }
 
     const expDate = new Date(exp * 1000);
     const expString = Convert.getDateToFormattedString(expDate, "YYYYMMDDHHmmss");
