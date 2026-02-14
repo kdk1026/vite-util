@@ -79,10 +79,14 @@ export const cookieUtil = {
             return;
         }
 
-        Cookies.set(name, JSON.stringify(value), {
-            ...DEFAULT_OPTIONS,
-            ...options,
-        });
+        try {
+            Cookies.set(name, JSON.stringify(value), {
+                ...DEFAULT_OPTIONS,
+                ...options,
+            });
+        } catch (error) {
+            console.error("JSON 문자열 변환 실패:", error);  
+        }
     },
 
     /**
@@ -97,6 +101,12 @@ export const cookieUtil = {
         }
 
         const value = Cookies.get(name);
-        return value ? JSON.parse(value) : null;
+
+        try {
+            return value ? JSON.parse(value) : null;
+        } catch (error) {
+            console.error("JSON 문자열 변환 실패:", error);  
+            return null;
+        }
     },
 };
