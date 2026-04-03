@@ -27,11 +27,15 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
 import duration from 'dayjs/plugin/duration';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
 dayjs.extend(customParseFormat);
 dayjs.extend(duration);
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
+dayjs.extend(utc);
+dayjs.extend(timezone)
 
 const FORMAT = {
     YYYYMMDD : 'YYYYMMDD',
@@ -649,6 +653,28 @@ const SetDate = {
     getDateByYearMonthDayHourMinuteSecond : function(year, month, day, hour, minute, second) {
         const momentObj = dayjs().year(year).month(month).date(day).hour(hour).minute(minute).second(second);
         return momentObj.toDate();
+    }
+};
+
+/**
+ * 타임존에 해당하는 시간 가져오기
+ * - https://timezonedb.com/time-zones
+ */
+export const TimeZone = {
+    /**
+     * 해당 타임존에 해당하는 현재 시간을 해당 시간 포맷으로 반환
+     * @param {string} timeZone 
+     * @param {string} timeFormat 
+     * @returns 
+     */
+    getCurrentTime : (timeZone, timeFormat) => {
+        const allowedChars = /^[HhmsAa: ]+$/;
+
+        if ( !allowedChars.test(timeFormat) ) {
+            throw new Error("Only time-related tokens (H, m, s, A, a) are allowed.");
+        }
+
+        return dayjs().tz(timeZone).format(timeFormat);
     }
 };
 
