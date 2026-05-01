@@ -32,6 +32,15 @@ export const isBlank = (val) => {
 };
 
 /**
+ * null, undefined, 빈 문자열, 공백, 'undefined' 체크
+ * @param {*} val 
+ * @returns 
+ */
+export const isNull = (val) => {
+    return !val || val == 'undefined' || val.replaceAll(/ /gi, '') === '';
+};
+
+/**
  * 문자열 길이 최소/최대 길이 준수 여부
  * * @param {object} options 
  * @param {string} options.val 
