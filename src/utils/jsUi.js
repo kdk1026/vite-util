@@ -11,15 +11,25 @@ export const UI = {};
 
 /**
  * 
- * @param {object} swiperOptions
+ ** @param {object} options
+ * @param {string} options.swiperId
+ * @param {boolean} options.isAutoplay
+ * @param {number} options.autoplayDelay
+ * @param {boolean} options.isPagination
+ * @param {string} options.paginationEl - class 선택자
+ * @param {string} options.paginationType - bullets', 'progressbar', 'fraction'
+ * @param {boolean} options.isNavigation
+ * @param {string} options.navigationNextEl - class 선택자
+ * @param {string} options.navigationPrevEl - class 선택자
  * @returns 
  */
 UI.swiperApply = ({swiperId, isAutoplay = true, autoplayDelay, isPagination = true, paginationEl,
-    isNavigation = false, navigationNextEl, navigationPrevEl}) => {
+    paginationType, isNavigation = false, navigationNextEl, navigationPrevEl}) => {
     return new Swiper(swiperId, {
         autoplay: isAutoplay ? { delay: autoplayDelay || 3000 } : false,
         pagination: isPagination ? {
-            el: paginationEl || '.swiper-pagination'
+            el: paginationEl || '.swiper-pagination',
+            type: paginationType || 'bullets'
         } : false,
         navigation: isNavigation ? {
             nextEl: navigationNextEl || '.swiper-button-next',
