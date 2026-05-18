@@ -14,9 +14,9 @@ export const UI = {};
  * @param {object} swiperOptions
  * @returns 
  */
-UI.swiperApply = ({swiperId, isAutoplay = true, autopalyDelay, isPagination = true, paginationEl, isNavigation = false, navigationNextEl, navigationPrevEl}) => {
+UI.swiperApply = ({swiperId, isAutoplay = true, autoplayDelay, isPagination = true, paginationEl, isNavigation = false, navigationNextEl, navigationPrevEl}) => {
     return new Swiper(swiperId, {
-        autoplay: isAutoplay ? { delay: autopalyDelay || 3000 } : false,
+        autoplay: isAutoplay ? { delay: autoplayDelay || 3000 } : false,
         pagination: isPagination ? {
             el: paginationEl || '.swiper-pagination'
         } : false,
