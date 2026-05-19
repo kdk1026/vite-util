@@ -37,14 +37,12 @@ export const shallowCopy = (source, target) => {
  * - 전통적인 방식과 동일
  *      Object.assign({}, source, target);
  * @param {object} source 
- * @param {undefined|object} source2 
+ * @param {undefined|null|object} source2 
  * @returns 
  */
 export const shallowClone = (source, source2 = {}) => {
-    if ( 
-        (typeof source !== 'object' || source === null) ||
-        (typeof source2 !== 'object' || source2 === null)
-    ) {
+    if ( typeof source !== 'object' || source === null 
+            || typeof source2 !== 'object' || source2 === null ) {
         console.warn('Source or source2 must be an object (excluding null)');
         return {};
     }
