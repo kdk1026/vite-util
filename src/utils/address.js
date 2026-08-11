@@ -28,7 +28,7 @@ export const extractSigungu = (addr) => {
     }
 
 	const tokens = addr.trim().split(' ');
-    
+
 	if (tokens.length < 2) return '';
 	
 	if ( tokens[1].endsWith('시') && tokens[2]?.endsWith('구') ) {
@@ -50,8 +50,8 @@ export const extractRoadAddress = (addr) => {
     }
 
     // 건물번호 제외 시 = ?(?:\s+\d+(?:-\d+)?) 제거
-    const regex = /[가-힣0-9]+(?:대로|로|길)(?:\s+[0-9가-힣]+길)?(?:\s+\d+(?:-\d+)?)?/;
-    const match = new RegExp(regex).exec(addr);
+    const regex = /[^대로길\s\d]+(?:대로|로|길)(?:\s+(?:[^길\s\d]+길(?:\s+\d+(?:-\d+)?)?|\d+(?:-\d+)?))?/;
+    const match = regex.exec(addr);
 
     return match ? match[0] : null;
 };
