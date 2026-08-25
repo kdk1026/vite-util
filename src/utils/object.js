@@ -47,6 +47,7 @@ export const shallowClone = (source, source2 = {}) => {
         return {};
     }
 
+    // return Object.assign({}, source, source2);
     return {...source, ...source2};
 };
 
