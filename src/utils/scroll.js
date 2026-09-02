@@ -14,10 +14,12 @@ export const scrollTo = (topPosition) => {
         return;
     }
 
-    window.scrollTo({
-        top: topPosition,
-        behavior: 'smooth'
-    });
+    setTimeout(() => {
+        window.scrollTo({
+            top: topPosition,
+            behavior: 'smooth'
+        });
+    }, 500);
 };
 
 /**
@@ -31,8 +33,10 @@ export const scrollToTarget = (targetElement) => {
         return;
     }
 
-    window.scrollTo({
-        top: targetElement.offsetTop,
-        behavior: 'smooth'
-    });
+    setTimeout(() => {
+        window.scrollTo({
+            top: targetElement.offsetTop,
+            behavior: 'smooth'
+        });
+    }, 500);
 };
