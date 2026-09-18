@@ -40,3 +40,86 @@ export const scrollToTarget = (targetElement) => {
         });
     }, 500);
 };
+
+/**
+ * 스크롤 페이징 처리
+ * @param {null|HTMLElement} targetElement 
+ * * @param {object} param
+ * @param {number} param.page
+ * @param {number} param.countPerPage
+ * @param {boolean} param.isEnd
+ * @param {Function} targetFunction 
+ * @returns
+ * @example
+ * document.addEventListener('DOMContentLoaded', () => {
+ *  scrollPaging(document.querySelector('.observer_target'), param, fetchMoreData);
+ * });
+ * 
+ * function fetchMoreData() {
+ *  try {
+ *      if (param.isEnd) return;
+ *      
+ *      const response = await fetch(`/api/items?page=${page}&size=${countPerPage}`);
+ *      const data = await response.json();
+ * 
+ *      if (data.length < countPerPage) {
+ *          param.isEnd = true;
+ *      }
+ * 
+ *      renderItems(data);
+ *      param.page ++;
+ *  } catch (error) {
+ *    console.error(`데이터를 불러오지 못했습니다. ${error}`);
+ *  }
+ */
+export const scrollPaging = (targetElement, param, targetFunction) => {
+    if ( targetElement === null ) {
+        const div = document.createElement('div');
+        div.classList.add('observer_target');
+        document.body.appendChild(div);
+        targetElement = div;
+    }
+
+    if ( !targetElement || !(targetElement instanceof HTMLElement) ) {
+        console.error('`targetElement` must be a valid DOM element.');
+        return;
+    }
+
+    if ( typeof param !== 'object' || param === null ) {
+        console.error('`param` must be a valid object.');
+        return;
+    }
+
+    if ( typeof targetFunction !== 'function' ) {
+        console.error('`targetFunction` must be a valid function.');
+        return;
+    }
+
+    if ( !('isEnd' in param) || typeof param.isEnd !== 'boolean' ) {
+        console.error('`param` must contain a boolean property `isEnd`.');
+        return;
+    }
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (param.isEnd) {
+                observer.unobserve(targetElement);
+                return;
+            }
+
+            if (entry.isIntersecting) {
+                targetFunction();
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+        root: null,
+        rootMargin: '0px 0px 200px 0px',    // 바닥에 닿기 200px 전에 미리 로드 시작
+        threshold: 0.1
+    });
+
+    observer.observe(targetElement);
+
+    return observer;
+};
