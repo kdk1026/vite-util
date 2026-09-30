@@ -5,12 +5,35 @@
  */
 
 /**
- * 동적으로 추가해야 할 경우
+ * 동적으로 외부 JS 파일을 로드하는 함수
+ * @param {string} url 
+ * @param {undefined|Function} callback 
  */
-export const loadExternalJs = () => {
-    const scriptJquery = document.createElement('script');
-    scriptJquery.src = `https://code.jquery.com/jquery-1.12.4.min.js`;
-    scriptJquery.async = true;
+export const loadExternalJs = (url, callback) => {
+    if ( typeof url !== 'string' || !url?.trim() ) {
+        console.warn('Invalid input url');
+        return null;
+    }
 
-    document.body.appendChild(scriptJquery);
+    if ( callback && typeof callback !== 'function' ) {
+        console.error('`callback` must be a valid function.');
+        return;
+    }
+
+    const existingScript = document.querySelector<HTMLScriptElement>(`script[src="${url}"]`);
+
+    if (!existingScript) {
+        const script = document.createElement('script');
+        script.src = url;
+        script.type = 'text/javascript';
+        script.async = true;
+
+        if (callback) {
+            script.onload = callback;
+        }
+
+        document.head.appendChild(script);
+    } else if (callback) {
+        callback();
+    }
 };
